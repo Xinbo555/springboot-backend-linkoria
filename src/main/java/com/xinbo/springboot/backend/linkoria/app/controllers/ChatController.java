@@ -32,7 +32,6 @@ public class ChatController {
         if(message.getStatus() == null) message.setStatus("sent");
         if(message.getReadBy() == null) message.setReadBy(new ArrayList<>());
         if(message.getType() == null) message.setType("text");
-
         return message;
     }
 }

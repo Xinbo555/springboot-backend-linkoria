@@ -25,6 +25,8 @@ public class User {
         this.email = email;
         this.passwordHash = passwordHash;
         this.createdAt = createdAt;
+        this.updatedAt = createdAt;
+        this.isActive = true;
     }
 
     //constructor para reconstuir desde la persistencia

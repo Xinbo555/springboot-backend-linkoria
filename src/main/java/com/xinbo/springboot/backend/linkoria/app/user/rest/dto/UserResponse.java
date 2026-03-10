@@ -5,6 +5,7 @@ import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+//esta clase tiene el proposito de transferir un Usuario pero sin su password al frontend
 public record UserResponse(
         UUID id,
         String username,

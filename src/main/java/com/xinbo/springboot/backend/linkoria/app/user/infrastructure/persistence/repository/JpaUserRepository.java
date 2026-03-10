@@ -1,8 +1,17 @@
 package com.xinbo.springboot.backend.linkoria.app.user.infrastructure.persistence.repository;
 
+import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.UserRepository;
+import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Email;
+import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Username;
+import com.xinbo.springboot.backend.linkoria.app.user.infrastructure.persistence.entity.UserEntity;
 import com.xinbo.springboot.backend.linkoria.app.user.infrastructure.persistence.mapper.UserEntityMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class JpaUserRepository implements UserRepository {

@@ -41,7 +41,7 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    //factory methods
+    //static factory methods
     public static User create(Username username, Email email, String passwordHash) {
         Objects.requireNonNull(username, "Username cannot be null");
         Objects.requireNonNull(email, "Email cannot be null");

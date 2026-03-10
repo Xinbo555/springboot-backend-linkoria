@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public List<User> searchUsers(String partialUsername){
-        return searchUsersUseCase.execute(new SearchUsersUseCase.Input(partialUsername));
+        return searchUsersUseCase.execute(partialUsername);
     }
 
     //Methods para consulta directa sin pasar por el flujo de los usecases para otros modulos (auth, friendship, etc.)

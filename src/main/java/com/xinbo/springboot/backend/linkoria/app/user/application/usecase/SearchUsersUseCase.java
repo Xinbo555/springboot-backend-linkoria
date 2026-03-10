@@ -15,13 +15,11 @@ public class SearchUsersUseCase {
         this.userRepository = userRepository;
     }
 
-    public record Input(String partialUsername) {}
-
-    public List<User> execute(Input input) {
-        if (input.partialUsername() == null || input.partialUsername().isBlank()) {
+    public List<User> execute(String partialUsername) {
+        if (partialUsername == null || partialUsername.isBlank()) {
             return List.of();
         }
 
-        return userRepository.findByUsernameContaining(input.partialUsername().trim());
+        return userRepository.findByUsernameContaining(partialUsername.trim());
     }
 }

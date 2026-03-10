@@ -1,4 +1,4 @@
-package com.xinbo.springboot.backend.linkoria.app.user.application.infrastructure.mapper;
+package com.xinbo.springboot.backend.linkoria.app.user.infrastructure.persistence.mapper;
 
-public class UserMapper {
+public class UserEntityMapper {
 }

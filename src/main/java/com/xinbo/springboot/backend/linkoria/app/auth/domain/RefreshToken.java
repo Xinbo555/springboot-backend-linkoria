@@ -12,7 +12,7 @@ public class RefreshToken {
     private final Instant expiresAt;
     private final boolean revoked;
 
-    public RefreshToken(Long id, String token, Long userId, Instant expiresAt, boolean revoked) {
+    private RefreshToken(Long id, String token, Long userId, Instant expiresAt, boolean revoked) {
         this.id = id;
         this.token = token;
         this.userId = userId;

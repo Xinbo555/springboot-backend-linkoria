@@ -5,10 +5,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,8 +22,8 @@ public class JwtProvider implements JwtPort {
 
     private final SecretKey secretKey;
 
-    public JwtProvider(@Value("${app.jwt.secret}")SecretKey secretKey) {
-        this.secretKey = secretKey;
+    public JwtProvider(@Value("${app.jwt.secret}")String secretKey) {
+        this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     @Override

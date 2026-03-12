@@ -1,15 +1,14 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.domain;
 
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.WeakPasswordException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthService {
 
-    private final PasswordEncoder passwordEncoder;
-
-    public AuthService(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public String hashPassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);

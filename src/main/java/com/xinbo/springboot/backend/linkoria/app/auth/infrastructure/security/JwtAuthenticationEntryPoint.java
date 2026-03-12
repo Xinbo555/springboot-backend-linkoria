@@ -15,12 +15,12 @@ import java.util.Map;
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper(); // Usado para convertir objetos Java a JSON
 
-    public JwtAuthenticationEntryPoint(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
-
+    /**
+     * Este método se ejecuta automáticamente cuando un usuario no autenticado
+     * intenta acceder a un endpoint protegido (requiere autenticación)
+     */
     @Override
     public void commence(
             HttpServletRequest request,
@@ -38,6 +38,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                 "timestamp", Instant.now().toString()
         );
 
+        // Escribimos el cuerpo en la respuesta como JSON
         objectMapper.writeValue(response.getOutputStream(), body);
     }
 }

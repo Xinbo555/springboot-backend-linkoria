@@ -7,10 +7,13 @@ import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.UserS
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.AuthService;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.InvalidCredentialsException;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+//mala praxis de anotacion
+@Service
 public class LoginUseCaseImpl implements LoginUseCase {
 
     private static final long REFRESH_TOKEN_DAYS = 30;

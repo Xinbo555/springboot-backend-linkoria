@@ -6,10 +6,12 @@ import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.Refre
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.UserServicePort;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.InvalidRefreshTokenException;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+@Service
 public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
 
     private static final long REFRESH_TOKEN_DAYS = 30;

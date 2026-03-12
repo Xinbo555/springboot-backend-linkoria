@@ -6,7 +6,8 @@ import com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.persistence
 import java.time.Instant;
 
 public class RefreshTokenMapper {
-    private RefreshTokenMapper(){}
+
+    private RefreshTokenMapper() {}
 
     public static RefreshToken toDomain(RefreshTokenEntity entity) {
         return RefreshToken.reconstitute(

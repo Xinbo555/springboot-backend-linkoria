@@ -8,10 +8,12 @@ import com.xinbo.springboot.backend.linkoria.app.auth.domain.AuthService;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.EmailAlreadyTakenException;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.UsernameAlreadyTakenException;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+@Service
 public class RegisterUseCaseImpl implements RegisterUseCase {
 
     private static final long REFRESH_TOKEN_DAYS = 30;

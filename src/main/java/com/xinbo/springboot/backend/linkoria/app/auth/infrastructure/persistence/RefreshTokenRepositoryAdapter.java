@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
@@ -37,7 +38,7 @@ public class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
 
     @Transactional
     @Override
-    public void revokeAllByUserId(Long userId) {
+    public void revokeAllByUserId(UUID userId) {
         jpaRepository.revokeAllByUserId(userId);
     }
 

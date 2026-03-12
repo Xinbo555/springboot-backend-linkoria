@@ -8,15 +8,17 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface RefreshTokenJpaRepository extends JpaRepository<RefreshTokenEntity, Long> {
+
     Optional<RefreshTokenEntity> findByToken(String token);
 
     @Modifying
     @Query("UPDATE RefreshTokenEntity r SET r.revoked = true WHERE r.userId = :userId AND r.revoked = false")
-    void revokeAllByUserId(@Param("userId") Long userId);
+    void revokeAllByUserId(@Param("userId") UUID userId);
 
     @Modifying
     @Query("DELETE FROM RefreshTokenEntity r WHERE r.expiresAt < :now")
-    void deleteExpiredTokens(@Param("now")Instant now);
+    void deleteExpiredTokens(@Param("now") Instant now);
 }

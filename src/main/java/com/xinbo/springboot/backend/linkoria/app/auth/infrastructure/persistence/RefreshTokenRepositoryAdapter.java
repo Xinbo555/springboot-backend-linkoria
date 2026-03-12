@@ -36,6 +36,11 @@ public class RefreshTokenRepositoryAdapter implements RefreshTokenRepository {
                 .map(RefreshTokenMapper::toDomain);
     }
 
+    // TODO: llamar a revokeAllByUserId cuando el usuario cambie su contraseña o sea baneado
+    // TODO: implementar POST /auth/logout-all para cerrar sesión en todos los dispositivos
+
+    // TODO: crear RefreshTokenCleanupJob con @Scheduled para ejecutar deleteExpiredTokens cada noche
+
     @Transactional
     @Override
     public void revokeAllByUserId(UUID userId) {

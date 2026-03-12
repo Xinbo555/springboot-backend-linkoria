@@ -1,7 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.application;
 
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.in.RefreshTokenUseCase;
-import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.JwtPort;
+import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.AccessTokenPort;
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.RefreshTokenRepository;
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.UserServicePort;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
@@ -17,15 +17,15 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
     private static final long REFRESH_TOKEN_DAYS = 30;
 
     private final RefreshTokenRepository refreshTokenRepository;
-    private final JwtPort jwtPort;
+    private final AccessTokenPort accessTokenPort;
     private final UserServicePort userServicePort;
 
     public RefreshTokenUseCaseImpl(
             RefreshTokenRepository refreshTokenRepository,
-            JwtPort jwtPort,
+            AccessTokenPort accessTokenPort,
             UserServicePort userServicePort) {
         this.refreshTokenRepository = refreshTokenRepository;
-        this.jwtPort = jwtPort;
+        this.accessTokenPort = accessTokenPort;
         this.userServicePort = userServicePort;
     }
 
@@ -50,7 +50,7 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
         );
         RefreshToken savedToken = refreshTokenRepository.save(newToken);
 
-        String newAccessToken = jwtPort.generateAccessToken(user.id(), user.username());
+        String newAccessToken = accessTokenPort.generateAccessToken(user.id(), user.username());
 
         return new TokenResult(newAccessToken, savedToken.getToken());
     }

@@ -1,6 +1,6 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.security;
 
-import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.JwtPort;
+import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.AccessTokenPort;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 
 @Component
-public class JwtProvider implements JwtPort {
+public class JwtProvider implements AccessTokenPort {
 
     private static final long ACCESS_TOKEN_MINUTES = 15;
 

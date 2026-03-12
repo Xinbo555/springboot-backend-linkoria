@@ -1,7 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.JwtPort;
+import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.AccessTokenPort;
 import com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.security.JwtAuthenticationEntryPoint;
 import com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +21,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint entryPoint;
-    private final JwtPort jwtPort;
+    private final AccessTokenPort accessTokenPort;
 
-    public SecurityConfig(JwtAuthenticationEntryPoint entryPoint, JwtPort jwtPort) {
+    public SecurityConfig(JwtAuthenticationEntryPoint entryPoint, AccessTokenPort accessTokenPort) {
         this.entryPoint = entryPoint;
-        this.jwtPort = jwtPort;
+        this.accessTokenPort = accessTokenPort;
     }
 
     @Bean
@@ -45,7 +45,7 @@ public class SecurityConfig {
                 )
                 // Registra JwtFilter antes del filtro de autenticación estándar de Spring
                 // para que el token JWT sea procesado primero y se pueble el SecurityContext
-                .addFilterBefore(new JwtFilter(jwtPort), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(accessTokenPort), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }

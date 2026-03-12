@@ -1,6 +1,6 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.security;
 
-import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.JwtPort;
+import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.AccessTokenPort;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,10 +22,10 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
-    private final JwtPort jwtPort;
+    private final AccessTokenPort accessTokenPort;
 
-    public JwtFilter(JwtPort jwtPort) {
-        this.jwtPort = jwtPort;
+    public JwtFilter(AccessTokenPort accessTokenPort) {
+        this.accessTokenPort = accessTokenPort;
     }
 
     @Override
@@ -33,9 +33,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = extractToken(request);
 
-        if (StringUtils.hasText(token) && jwtPort.validateToken(token)) {
-            UUID userId = jwtPort.extractUserId(token);
-            String username = jwtPort.extractUsername(token);
+        if (StringUtils.hasText(token) && accessTokenPort.validateToken(token)) {
+            UUID userId = accessTokenPort.extractUserId(token);
+            String username = accessTokenPort.extractUsername(token);
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(

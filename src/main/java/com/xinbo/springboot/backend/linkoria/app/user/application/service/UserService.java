@@ -1,10 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.user.application.service;
 
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.ResourceNotFoundException;
-import com.xinbo.springboot.backend.linkoria.app.user.application.usecase.CreateUserUseCase;
-import com.xinbo.springboot.backend.linkoria.app.user.application.usecase.GetUserProfileUseCase;
-import com.xinbo.springboot.backend.linkoria.app.user.application.usecase.SearchUsersUseCase;
-import com.xinbo.springboot.backend.linkoria.app.user.application.usecase.UpdateUserUseCase;
+import com.xinbo.springboot.backend.linkoria.app.user.application.usecase.*;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.UserRepository;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Email;
@@ -22,14 +19,14 @@ public class UserService {
     private final UpdateUserUseCase updateUserUseCase;
     private final GetUserProfileUseCase getUserProfileUseCase;
     private final SearchUsersUseCase searchUsersUseCase;
-    private final UserRepository userRepository;
+    private final FindUserUseCase findUserUseCase;
 
-    public UserService(CreateUserUseCase createUserUseCase, UpdateUserUseCase updateUserUseCase, GetUserProfileUseCase getUserProfileUseCase, SearchUsersUseCase searchUsersUseCase, UserRepository userRepository) {
+    public UserService(CreateUserUseCase createUserUseCase, UpdateUserUseCase updateUserUseCase, GetUserProfileUseCase getUserProfileUseCase, SearchUsersUseCase searchUsersUseCase, FindUserUseCase findUserUseCase) {
         this.createUserUseCase = createUserUseCase;
         this.updateUserUseCase = updateUserUseCase;
         this.getUserProfileUseCase = getUserProfileUseCase;
         this.searchUsersUseCase = searchUsersUseCase;
-        this.userRepository = userRepository;
+        this.findUserUseCase = findUserUseCase;
     }
 
     public User updateUser(UUID userId, String newUsername, String newEmail, String newAvatarUrl) {
@@ -44,4 +41,23 @@ public class UserService {
         return searchUsersUseCase.execute(partialUsername);
     }
 
+    public User createUser(String username, String email, String passwordHash){
+        return createUserUseCase.execute(new CreateUserUseCase.Input(username,email,passwordHash));
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return findUserUseCase.findByEmail(email);
+    }
+
+    public Optional<User> findById(UUID id) {
+        return findUserUseCase.findById(id);
+    }
+
+    public boolean existsByEmail(String email) {
+        return findUserUseCase.existsByEmail(email);
+    }
+
+    public boolean existsByUsername(String username) {
+        return findUserUseCase.existsByUsername(username);
+    }
 }

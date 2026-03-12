@@ -1,8 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.security;
 
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.UserServicePort;
-import com.xinbo.springboot.backend.linkoria.app.user.application.usecase.CreateUserUseCase;
-import com.xinbo.springboot.backend.linkoria.app.user.application.usecase.FindUserUseCase;
+import com.xinbo.springboot.backend.linkoria.app.user.application.service.UserService;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import org.springframework.stereotype.Component;
 
@@ -14,41 +13,37 @@ import java.util.UUID;
 @Component
 public class UserServiceAdapter implements UserServicePort {
 
-    private final FindUserUseCase findUserUseCase;
-    private final CreateUserUseCase createUserUseCase;
+    private final UserService userService;
 
-    public UserServiceAdapter(FindUserUseCase findUserUseCase, CreateUserUseCase createUserUseCase) {
-        this.findUserUseCase = findUserUseCase;
-        this.createUserUseCase = createUserUseCase;
+    public UserServiceAdapter(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public Optional<UserView> findByEmail(String email) {
-        return findUserUseCase.findByEmail(email)
+        return userService.findByEmail(email)
                 .map(u -> new UserView(u.getId(), u.getUsername().getValue(), u.getEmail().getValue(), u.getPasswordHash()));
     }
 
     @Override
     public Optional<UserView> findById(UUID id) {
-        return findUserUseCase.findById(id)
+        return userService.findById(id)
                 .map(u -> new UserView(u.getId(), u.getUsername().getValue(), u.getEmail().getValue(), u.getPasswordHash()));
     }
 
     @Override
     public UserView createUser(CreateUserRequest request) {
-        User user = createUserUseCase.execute(
-                new CreateUserUseCase.Input(request.username(), request.email(), request.passwordHash())
-        );
+        User user = userService.createUser(request.username(), request.email(), request.passwordHash());
         return new UserView(user.getId(), user.getUsername().getValue(), user.getEmail().getValue(), user.getPasswordHash());
     }
 
     @Override
     public boolean existsByEmail(String email) {
-        return findUserUseCase.existsByEmail(email);
+        return userService.existsByEmail(email);
     }
 
     @Override
     public boolean existsByUsername(String username) {
-        return findUserUseCase.existsByUsername(username);
+        return userService.existsByUsername(username);
     }
 }

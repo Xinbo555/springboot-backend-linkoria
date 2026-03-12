@@ -1,6 +1,9 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -18,6 +21,7 @@ public class RefreshTokenEntity {
     @Column(name = "token", nullable = false, unique = true, length = 36)
     private String token;
 
+    @JdbcTypeCode(SqlTypes.CHAR)
     @Column(name = "user_id", nullable = false, columnDefinition = "CHAR(36)")
     private UUID userId;
 

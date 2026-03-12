@@ -5,11 +5,11 @@ import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.UserRepository;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Email;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Username;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Component
+@Service
 public class UpdateUserUseCase {
 
     private final UserRepository userRepository;

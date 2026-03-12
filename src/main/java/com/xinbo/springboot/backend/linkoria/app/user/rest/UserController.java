@@ -2,20 +2,18 @@ package com.xinbo.springboot.backend.linkoria.app.user.rest;
 
 import com.xinbo.springboot.backend.linkoria.app.user.application.service.UserService;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
-import com.xinbo.springboot.backend.linkoria.app.user.rest.dto.CreateUserRequest;
 import com.xinbo.springboot.backend.linkoria.app.user.rest.dto.UpdateUserRequest;
 import com.xinbo.springboot.backend.linkoria.app.user.rest.dto.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@Tag(name = "Users", description = "User management endpoints")
+@Tag(name = "Users", description = "Gestión de perfiles de usuario — consulta, actualización y búsqueda")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -26,22 +24,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "Create user by RequestBody")
-    @PostMapping
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
-        // Note: password hashing is handled by the auth module before reaching here
-        User user = userService.createUser(request.username(), request.email(), request.password());
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.from(user));
-    }
-
-    @Operation(summary = "Get user profile by ID")
+    @Operation(
+            summary = "Obtener perfil de usuario",
+            description = "Devuelve el perfil público de un usuario dado su UUID. Requiere accessToken válido."
+    )
     @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> getUserProfile(@PathVariable UUID userId) {
         User user = userService.getUserById(userId);
         return ResponseEntity.ok(UserResponse.from(user));
     }
 
-    @Operation(summary = "Update user by ID and RequestBody")
+    @Operation(
+            summary = "Actualizar perfil de usuario",
+            description = "Actualiza los campos username, email y avatarUrl del usuario. Solo se aplican los campos enviados en el body."
+    )
     @PatchMapping("/{userId}")
     public ResponseEntity<UserResponse> updateUser(
             @PathVariable UUID userId,
@@ -50,7 +46,10 @@ public class UserController {
         return ResponseEntity.ok(UserResponse.from(user));
     }
 
-    @Operation(summary = "Search users by partial username")
+    @Operation(
+            summary = "Buscar usuarios por nombre",
+            description = "Devuelve una lista de usuarios cuyo username contenga el texto indicado. La búsqueda no distingue mayúsculas de minúsculas."
+    )
     @GetMapping("/search")
     public ResponseEntity<List<UserResponse>> searchUsers(@RequestParam String username) {
         List<UserResponse> users = userService.searchUsers(username)

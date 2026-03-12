@@ -32,10 +32,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(String username, String email, String passwordHash) {
-        return createUserUseCase.execute(new CreateUserUseCase.Input(username,email,passwordHash));
-    }
-
     public User updateUser(UUID userId, String newUsername, String newEmail, String newAvatarUrl) {
         return updateUserUseCase.execute(new UpdateUserUseCase.Input(userId,newUsername,newEmail,newAvatarUrl));
     }
@@ -48,12 +44,4 @@ public class UserService {
         return searchUsersUseCase.execute(partialUsername);
     }
 
-    //Methods para consulta directa sin pasar por el flujo de los usecases para otros modulos (auth, friendship, etc.)
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(Email.of(email));
-    }
-
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(Username.of(username));
-    }
 }

@@ -2,11 +2,11 @@ package com.xinbo.springboot.backend.linkoria.app.user.application.usecase;
 
 import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.UserRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class SearchUsersUseCase {
 
     private final UserRepository userRepository;

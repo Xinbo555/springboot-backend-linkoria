@@ -70,7 +70,7 @@ Una vez arrancada la aplicación, puedes explorar todos los endpoints disponible
 Este proyecto está en desarrollo activo como parte del TFG. Módulos implementados hasta el momento:
 
 - [x] `user` — Gestión de usuarios
-- [ ] `auth` — Autenticación JWT
+- [x] `auth` — Autenticación JWT
 - [ ] `friendship` — Sistema de amistades
 - [ ] `server` — Servidores y miembros
 - [ ] `channel` — Canales de texto

@@ -2,7 +2,7 @@ package com.xinbo.springboot.backend.linkoria.app.auth.application.port.out;
 
 import java.util.UUID;
 
-public interface JwtPort {
+public interface AccessTokenPort {
 
     String generateAccessToken(UUID userId, String username);
 

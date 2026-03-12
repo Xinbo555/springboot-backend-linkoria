@@ -1,7 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.application;
 
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.in.LoginUseCase;
-import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.JwtPort;
+import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.AccessTokenPort;
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.RefreshTokenRepository;
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.UserServicePort;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.AuthService;
@@ -20,17 +20,17 @@ public class LoginUseCaseImpl implements LoginUseCase {
 
     private final AuthService authService;
     private final UserServicePort userServicePort;
-    private final JwtPort jwtPort;
+    private final AccessTokenPort accessTokenPort;
     private final RefreshTokenRepository refreshTokenRepository;
 
     public LoginUseCaseImpl(
             AuthService authService,
             UserServicePort userServicePort,
-            JwtPort jwtPort,
+            AccessTokenPort accessTokenPort,
             RefreshTokenRepository refreshTokenRepository) {
         this.authService = authService;
         this.userServicePort = userServicePort;
-        this.jwtPort = jwtPort;
+        this.accessTokenPort = accessTokenPort;
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
@@ -43,7 +43,7 @@ public class LoginUseCaseImpl implements LoginUseCase {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        String accessToken = jwtPort.generateAccessToken(user.id(), user.username());
+        String accessToken = accessTokenPort.generateAccessToken(user.id(), user.username());
 
         RefreshToken refreshToken = RefreshToken.create(
                 user.id(),

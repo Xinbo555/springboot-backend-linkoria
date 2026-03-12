@@ -3,16 +3,15 @@ package com.xinbo.springboot.backend.linkoria.app.auth.domain;
 import java.time.Instant;
 import java.util.UUID;
 
-//RefreshToken es inmutable, revoke() devuelven una nueva instancia en lugar de mutar el estado
 public class RefreshToken {
 
     private final Long id;
     private final String token;
-    private final Long userId;
+    private final UUID userId;
     private final Instant expiresAt;
     private final boolean revoked;
 
-    private RefreshToken(Long id, String token, Long userId, Instant expiresAt, boolean revoked) {
+    private RefreshToken(Long id, String token, UUID userId, Instant expiresAt, boolean revoked) {
         this.id = id;
         this.token = token;
         this.userId = userId;
@@ -20,11 +19,11 @@ public class RefreshToken {
         this.revoked = revoked;
     }
 
-    public static RefreshToken create(Long userId, Instant expiresAt) {
-        return new RefreshToken(null, UUID.randomUUID().toString(), userId,expiresAt, false);
+    public static RefreshToken create(UUID userId, Instant expiresAt) {
+        return new RefreshToken(null, UUID.randomUUID().toString(), userId, expiresAt, false);
     }
 
-    public static RefreshToken reconstitute(Long id, String token, Long userId, Instant expiresAt, boolean revoked) {
+    public static RefreshToken reconstitute(Long id, String token, UUID userId, Instant expiresAt, boolean revoked) {
         return new RefreshToken(id, token, userId, expiresAt, revoked);
     }
 
@@ -40,26 +39,9 @@ public class RefreshToken {
         return !isExpired() && !revoked;
     }
 
-    //getters
-    public Instant getExpiresAt() {
-        return expiresAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public boolean isRevoked() {
-        return revoked;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
+    public Long getId() { return id; }
+    public String getToken() { return token; }
+    public UUID getUserId() { return userId; }
+    public Instant getExpiresAt() { return expiresAt; }
+    public boolean isRevoked() { return revoked; }
 }
-
-

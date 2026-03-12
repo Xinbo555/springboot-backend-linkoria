@@ -1,11 +1,12 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.application.port.out;
 
-//puerto que genera y valida AccessTokens
+import java.util.UUID;
+
 public interface JwtPort {
 
-    String generateAccessToken(Long userId, String username);
+    String generateAccessToken(UUID userId, String username);
 
-    Long extractUserId(String token);
+    UUID extractUserId(String token);
 
     String extractUsername(String token);
 

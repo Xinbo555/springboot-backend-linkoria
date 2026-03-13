@@ -1,4 +1,4 @@
-package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.security;
+package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.adapter.out;
 
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.UserServicePort;
 import com.xinbo.springboot.backend.linkoria.app.user.application.service.UserService;

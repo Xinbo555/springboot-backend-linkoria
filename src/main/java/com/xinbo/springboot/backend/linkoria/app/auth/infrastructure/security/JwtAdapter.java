@@ -15,13 +15,13 @@ import java.util.Date;
 import java.util.UUID;
 
 @Component
-public class JwtProvider implements AccessTokenPort {
+public class JwtAdapter implements AccessTokenPort {
 
     private static final long ACCESS_TOKEN_MINUTES = 15;
 
     private final SecretKey secretKey;
 
-    public JwtProvider(@Value("${app.jwt.secret}")String secretKey) {
+    public JwtAdapter(@Value("${app.jwt.secret}")String secretKey) {
         this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 

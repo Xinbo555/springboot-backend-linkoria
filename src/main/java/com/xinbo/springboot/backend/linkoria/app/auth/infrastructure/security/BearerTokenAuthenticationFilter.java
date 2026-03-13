@@ -17,14 +17,14 @@ import java.util.UUID;
 
 //Esta clase es un filtro de Spring Security que extrae el JWT de la petición, lo valida y, si es válido,
 //carga el usuario autenticado en el contexto de seguridad para que esté disponible en toda la solicitud.
-public class JwtFilter extends OncePerRequestFilter {
+public class BearerTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final AccessTokenPort accessTokenPort;
 
-    public JwtFilter(AccessTokenPort accessTokenPort) {
+    public BearerTokenAuthenticationFilter(AccessTokenPort accessTokenPort) {
         this.accessTokenPort = accessTokenPort;
     }
 

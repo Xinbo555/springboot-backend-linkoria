@@ -1,6 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.security;
 
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.AccessTokenPort;
+import com.xinbo.springboot.backend.linkoria.app.shared.security.AuthenticatedUser;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.security;
+package com.xinbo.springboot.backend.linkoria.app.shared.security;
 
 import java.util.UUID;
 

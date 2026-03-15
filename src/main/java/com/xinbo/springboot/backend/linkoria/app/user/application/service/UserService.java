@@ -1,11 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.user.application.service;
 
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.ResourceNotFoundException;
 import com.xinbo.springboot.backend.linkoria.app.user.application.usecase.*;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
-import com.xinbo.springboot.backend.linkoria.app.user.domain.UserRepository;
-import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Email;
-import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Username;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

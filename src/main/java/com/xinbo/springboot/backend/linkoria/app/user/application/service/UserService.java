@@ -56,4 +56,6 @@ public class UserService {
     public boolean existsByUsername(String username) {
         return findUserUseCase.existsByUsername(username);
     }
+
+    public boolean existsById(UUID id){return findUserUseCase.existsById(id);}
 }

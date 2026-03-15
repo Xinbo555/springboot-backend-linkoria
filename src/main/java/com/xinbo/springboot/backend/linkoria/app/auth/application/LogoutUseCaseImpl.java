@@ -1,7 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.application;
 
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.in.LogoutUseCase;
-import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.RefreshTokenRepository;
+import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshTokenRepository;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.TokenNotFoundException;
 import org.springframework.stereotype.Service;

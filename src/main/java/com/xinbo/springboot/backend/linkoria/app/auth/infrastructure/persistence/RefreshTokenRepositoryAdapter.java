@@ -1,6 +1,6 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.persistence;
 
-import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.RefreshTokenRepository;
+import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshTokenRepository;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
 import com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.persistence.entity.RefreshTokenEntity;
 import com.xinbo.springboot.backend.linkoria.app.auth.infrastructure.persistence.mapper.RefreshTokenMapper;

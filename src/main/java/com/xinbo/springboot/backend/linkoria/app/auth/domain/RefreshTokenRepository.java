@@ -1,6 +1,4 @@
-package com.xinbo.springboot.backend.linkoria.app.auth.application.port.out;
-
-import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
+package com.xinbo.springboot.backend.linkoria.app.auth.domain;
 
 import java.util.Optional;
 import java.util.UUID;

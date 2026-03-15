@@ -2,7 +2,7 @@ package com.xinbo.springboot.backend.linkoria.app.auth.application;
 
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.in.RefreshTokenUseCase;
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.AccessTokenPort;
-import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.RefreshTokenRepository;
+import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshTokenRepository;
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.UserServicePort;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.InvalidRefreshTokenException;

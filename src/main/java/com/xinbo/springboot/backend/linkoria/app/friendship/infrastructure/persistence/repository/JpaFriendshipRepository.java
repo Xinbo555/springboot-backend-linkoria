@@ -20,7 +20,8 @@ public interface JpaFriendshipRepository extends JpaRepository<FriendshipEntity,
     );
 
     @Query("SELECT f FROM FriendshipEntity f " +
-            "WHERE f.senderId = :senderId AND f.receiverId = :receiverId")
+            "WHERE f.senderId = :senderId AND f.receiverId = :receiverId " +
+            "OR (f.senderId = :receiverId AND f.receiverId = :senderId)")
     Optional<FriendshipEntity> findBySenderReceiverId(
             @Param("senderId") UUID senderId,
             @Param("receiverId") UUID receiverId

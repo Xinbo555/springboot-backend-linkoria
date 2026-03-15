@@ -6,8 +6,8 @@ import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshTokenReposit
 import com.xinbo.springboot.backend.linkoria.app.auth.application.port.out.UserServicePort;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.AuthService;
 import com.xinbo.springboot.backend.linkoria.app.auth.domain.RefreshToken;
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.user.EmailAlreadyTakenException;
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.user.UsernameAlreadyTakenException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.EmailAlreadyTakenException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.UsernameAlreadyTakenException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

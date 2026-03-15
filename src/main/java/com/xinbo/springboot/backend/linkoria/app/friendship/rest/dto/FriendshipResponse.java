@@ -26,7 +26,7 @@ public record FriendshipResponse(
                 friendship.getId(),
                 friendship.getSenderId(),
                 friendship.getReceiverId(),
-                friendship.getStatus().toString(),
+                visibleStatus.toString(),
                 friendship.getCreatedAt(),
                 friendship.getUpdatedAt()
         );

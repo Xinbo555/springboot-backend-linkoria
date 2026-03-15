@@ -1,4 +1,4 @@
-package com.xinbo.springboot.backend.linkoria.app.shared.exception.user;
+package com.xinbo.springboot.backend.linkoria.app.shared.exception.auth;
 
 public class UsernameAlreadyTakenException extends RuntimeException {
     public UsernameAlreadyTakenException(String message) {

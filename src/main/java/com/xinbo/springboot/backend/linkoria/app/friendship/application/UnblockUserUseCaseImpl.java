@@ -19,11 +19,11 @@ public class UnblockUserUseCaseImpl implements UnblockUserUseCase {
 
     @Override
     public Friendship unblock(UnblockCommand command) {
-        Friendship friendship = friendshipRepository.findBySenderReceiverId(command.requesterId(),command.targetId())
-                .or(() -> friendshipRepository.findBySenderReceiverId(command.targetId(),command.requesterId()))
+        Friendship friendship = friendshipRepository.findBySenderReceiverId(command.requesterId(), command.targetId())
+                .or(() -> friendshipRepository.findBySenderReceiverId(command.targetId(), command.requesterId()))
                 .orElseThrow(() -> new FriendshipNotFoundException("No friend request found"));
 
-        if(friendship.getStatus() != FriendshipStatus.BLOCKED) {
+        if (friendship.getStatus() != FriendshipStatus.BLOCKED) {
             throw new FriendshipStatusException("The status in this friendship must be \"BLOCKED\"");
         }
 

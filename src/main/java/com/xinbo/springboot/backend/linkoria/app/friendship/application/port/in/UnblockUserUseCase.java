@@ -8,5 +8,6 @@ public interface UnblockUserUseCase {
 
     Friendship unblock(UnblockCommand command);
 
-    record UnblockCommand(UUID requesterId, UUID targetId) {}
+    record UnblockCommand(UUID requesterId, UUID targetId) {
+    }
 }

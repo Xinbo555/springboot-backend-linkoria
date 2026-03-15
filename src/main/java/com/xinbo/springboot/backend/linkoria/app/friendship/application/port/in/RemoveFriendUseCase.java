@@ -8,5 +8,6 @@ public interface RemoveFriendUseCase {
 
     Friendship remove(RemoveCommand command);
 
-    record RemoveCommand(UUID requesterId, UUID targetId) {}
+    record RemoveCommand(UUID requesterId, UUID targetId) {
+    }
 }

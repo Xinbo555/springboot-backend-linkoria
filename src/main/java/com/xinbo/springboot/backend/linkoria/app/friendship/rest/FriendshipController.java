@@ -52,7 +52,7 @@ public class FriendshipController {
             @RequestBody FriendshipActionRequest request) {
         Friendship friendship = sendFriendRequestUseCase.send(new SendFriendRequestUseCase.SendCommand(currentUser.getId(), request.targetId()));
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(FriendshipResponse.from(friendship,currentUser.getId()));
+                .body(FriendshipResponse.from(friendship, currentUser.getId()));
     }
 
     @Operation(
@@ -64,7 +64,7 @@ public class FriendshipController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = acceptFriendRequestUseCase.accept(new AcceptFriendRequestUseCase.AcceptCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship,currentUser.getId()));
+        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
     }
 
     @Operation(
@@ -76,7 +76,7 @@ public class FriendshipController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = declineFriendRequestUseCase.decline(new DeclineFriendRequestUseCase.DeclineCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship,currentUser.getId()));
+        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
     }
 
     @Operation(
@@ -88,7 +88,7 @@ public class FriendshipController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = blockUserUseCase.block(new BlockUserUseCase.BlockCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship,currentUser.getId()));
+        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
     }
 
     @Operation(
@@ -100,7 +100,7 @@ public class FriendshipController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = unblockUserUseCase.unblock(new UnblockUserUseCase.UnblockCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship,currentUser.getId()));
+        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
     }
 
     @Operation(
@@ -112,7 +112,7 @@ public class FriendshipController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = removeFriendUseCase.remove(new RemoveFriendUseCase.RemoveCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship,currentUser.getId()));
+        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
     }
 
     @Operation(
@@ -123,7 +123,7 @@ public class FriendshipController {
     public ResponseEntity<List<FriendshipResponse>> getFriends(
             @AuthenticationPrincipal AuthenticatedUser currentUser) {
         List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getFriends(currentUser.getId())
-                .stream().map(fs-> FriendshipResponse.from(fs,currentUser.getId())).toList();
+                .stream().map(fs -> FriendshipResponse.from(fs, currentUser.getId())).toList();
 
         return ResponseEntity.ok(friendshipResponseList);
     }
@@ -136,7 +136,7 @@ public class FriendshipController {
     public ResponseEntity<List<FriendshipResponse>> getPendingReceived(
             @AuthenticationPrincipal AuthenticatedUser currentUser) {
         List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getPendingReceived(currentUser.getId())
-                .stream().map(fs-> FriendshipResponse.from(fs,currentUser.getId())).toList();
+                .stream().map(fs -> FriendshipResponse.from(fs, currentUser.getId())).toList();
 
         return ResponseEntity.ok(friendshipResponseList);
     }
@@ -149,7 +149,7 @@ public class FriendshipController {
     public ResponseEntity<List<FriendshipResponse>> getPendingSent(
             @AuthenticationPrincipal AuthenticatedUser currentUser) {
         List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getPendingSent(currentUser.getId())
-                .stream().map(fs-> FriendshipResponse.from(fs,currentUser.getId())).toList();
+                .stream().map(fs -> FriendshipResponse.from(fs, currentUser.getId())).toList();
 
         return ResponseEntity.ok(friendshipResponseList);
     }
@@ -162,7 +162,7 @@ public class FriendshipController {
     public ResponseEntity<List<FriendshipResponse>> getBlocked(
             @AuthenticationPrincipal AuthenticatedUser currentUser) {
         List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getBlockedByMe(currentUser.getId())
-                .stream().map(fs-> FriendshipResponse.from(fs,currentUser.getId())).toList();
+                .stream().map(fs -> FriendshipResponse.from(fs, currentUser.getId())).toList();
 
         return ResponseEntity.ok(friendshipResponseList);
     }

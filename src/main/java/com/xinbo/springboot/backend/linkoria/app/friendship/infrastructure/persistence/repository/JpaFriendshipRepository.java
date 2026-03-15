@@ -15,14 +15,14 @@ public interface JpaFriendshipRepository extends JpaRepository<FriendshipEntity,
             "WHERE (f.senderId = :senderId OR f.receiverId = :senderId) " +
             "AND f.status = :status")
     List<FriendshipEntity> findByUserIdAndStatus(
-            @Param("senderId")UUID senderId,
+            @Param("senderId") UUID senderId,
             @Param("status") FriendshipStatus statuses
     );
 
     @Query("SELECT f FROM FriendshipEntity f " +
             "WHERE f.senderId = :senderId AND f.receiverId = :receiverId")
     Optional<FriendshipEntity> findBySenderReceiverId(
-            @Param("senderId")UUID senderId,
+            @Param("senderId") UUID senderId,
             @Param("receiverId") UUID receiverId
     );
 
@@ -32,7 +32,7 @@ public interface JpaFriendshipRepository extends JpaRepository<FriendshipEntity,
             "OR f.senderId = :receiverId AND f.receiverId= :senderId) " +
             "AND f.status IN :statuses")
     boolean existsByUsersAndStatusIn(
-            @Param("senderId")UUID senderId,
+            @Param("senderId") UUID senderId,
             @Param("receiverId") UUID receiverId,
             @Param("statuses") List<FriendshipStatus> statuses
     );

@@ -42,7 +42,8 @@ public class FriendshipEntity {
     @Column(name = "blocked_by", columnDefinition = "CHAR(36)")
     private UUID blockedBy;
 
-    protected FriendshipEntity() {}
+    protected FriendshipEntity() {
+    }
 
     public FriendshipEntity(Long id, UUID senderId, UUID receiverId, FriendshipStatus status, Instant createdAt, Instant updatedAt, UUID blockedBy) {
         this.id = id;

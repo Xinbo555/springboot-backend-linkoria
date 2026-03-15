@@ -18,8 +18,8 @@ public class BlockUserUseCaseImpl implements BlockUserUseCase {
 
     @Override
     public Friendship block(BlockCommand command) {
-        Friendship friendship = friendshipRepository.findBySenderReceiverId(command.requesterId(),command.targetId())
-                .or(() -> friendshipRepository.findBySenderReceiverId(command.targetId(),command.requesterId()))
+        Friendship friendship = friendshipRepository.findBySenderReceiverId(command.requesterId(), command.targetId())
+                .or(() -> friendshipRepository.findBySenderReceiverId(command.targetId(), command.requesterId()))
                 .orElseThrow(() -> new FriendshipNotFoundException("No friend request found"));
 
         //ignorar silenciosamente
@@ -27,7 +27,7 @@ public class BlockUserUseCaseImpl implements BlockUserUseCase {
             return friendship;
         }
 
-        if(!(friendship.getStatus() == FriendshipStatus.ACCEPTED)) {
+        if (!(friendship.getStatus() == FriendshipStatus.ACCEPTED)) {
             throw new FriendshipStatusException("The status in this friendship must be \"ACCEPTED\"");
         }
 

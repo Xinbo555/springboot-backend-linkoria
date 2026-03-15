@@ -8,5 +8,6 @@ public interface SendFriendRequestUseCase {
 
     Friendship send(SendCommand command);
 
-    record SendCommand(UUID senderId, UUID receiverId) {}
+    record SendCommand(UUID senderId, UUID receiverId) {
+    }
 }

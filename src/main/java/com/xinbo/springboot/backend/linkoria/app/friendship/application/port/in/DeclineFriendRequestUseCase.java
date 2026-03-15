@@ -8,5 +8,6 @@ public interface DeclineFriendRequestUseCase {
 
     Friendship decline(DeclineCommand command);
 
-    record DeclineCommand(UUID senderId, UUID receiverId) {}
+    record DeclineCommand(UUID senderId, UUID receiverId) {
+    }
 }

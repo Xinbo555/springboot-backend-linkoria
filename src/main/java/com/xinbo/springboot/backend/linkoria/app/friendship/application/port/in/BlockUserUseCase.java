@@ -8,5 +8,6 @@ public interface BlockUserUseCase {
 
     Friendship block(BlockCommand command);
 
-    record BlockCommand(UUID requesterId, UUID targetId) {}
+    record BlockCommand(UUID requesterId, UUID targetId) {
+    }
 }

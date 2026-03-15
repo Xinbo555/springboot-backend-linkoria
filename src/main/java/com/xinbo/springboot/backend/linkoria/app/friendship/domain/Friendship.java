@@ -22,9 +22,9 @@ public class Friendship {
         this.blockedBy = blockedBy;
     }
 
-    public static Friendship create(UUID senderId, UUID receiverId){
+    public static Friendship create(UUID senderId, UUID receiverId) {
         Instant createdAt = Instant.now();
-        return new Friendship(null,senderId,receiverId,FriendshipStatus.PENDING,createdAt,createdAt,null);
+        return new Friendship(null, senderId, receiverId, FriendshipStatus.PENDING, createdAt, createdAt, null);
     }
 
     public static Friendship reconstitute(Long id, UUID senderId, UUID receiverId, FriendshipStatus status, Instant createdAt, Instant updatedAt, UUID blockedBy) {
@@ -32,19 +32,19 @@ public class Friendship {
     }
 
     public Friendship accept() {
-        return new Friendship(this.id,this.senderId,this.receiverId,FriendshipStatus.ACCEPTED,this.createdAt,Instant.now(), this.blockedBy);
+        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.ACCEPTED, this.createdAt, Instant.now(), this.blockedBy);
     }
 
     public Friendship decline() {
-        return new Friendship(this.id,this.senderId, this.receiverId,FriendshipStatus.DECLINED, this.createdAt, Instant.now(), this.blockedBy);
+        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.DECLINED, this.createdAt, Instant.now(), this.blockedBy);
     }
 
     public Friendship block(UUID blockerId) {
-        return new Friendship(this.id,this.senderId, this.receiverId,FriendshipStatus.BLOCKED, this.createdAt, Instant.now(), blockerId);
+        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.BLOCKED, this.createdAt, Instant.now(), blockerId);
     }
 
     public Friendship remove() {
-        return new Friendship(this.id,this.senderId, this.receiverId,FriendshipStatus.REMOVED, this.createdAt, Instant.now(), this.blockedBy);
+        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.REMOVED, this.createdAt, Instant.now(), this.blockedBy);
     }
 
     public Friendship unblock() {

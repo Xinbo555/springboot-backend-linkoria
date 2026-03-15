@@ -23,15 +23,15 @@ public class SendFriendRequestUseCaseImpl implements SendFriendRequestUseCase {
 
     @Override
     public Friendship send(SendCommand command) {
-        if (!userValidationPort.existsById(command.receiverId())){
+        if (!userValidationPort.existsById(command.receiverId())) {
             throw new ReceiverIdNotFoundException("User Id not found");
         }
 
-        if(friendshipRepository.existsByUsersAndStatusIn(command.senderId(),command.receiverId(),
+        if (friendshipRepository.existsByUsersAndStatusIn(command.senderId(), command.receiverId(),
                 List.of(FriendshipStatus.PENDING, FriendshipStatus.ACCEPTED, FriendshipStatus.BLOCKED))) {
             throw new FriendshipAlreadyExistsException("There is a friendship between these users");
         }
 
-        return friendshipRepository.save(Friendship.create(command.senderId(),command.receiverId()));
+        return friendshipRepository.save(Friendship.create(command.senderId(), command.receiverId()));
     }
 }

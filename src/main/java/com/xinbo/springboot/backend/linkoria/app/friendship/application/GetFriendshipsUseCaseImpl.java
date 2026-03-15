@@ -33,19 +33,19 @@ public class GetFriendshipsUseCaseImpl implements GetFriendshipsUseCase {
 
     @Override
     public List<Friendship> getPendingReceived(UUID userId) {
-        return friendshipRepository.findByUserIdAndStatus(userId,FriendshipStatus.PENDING)
+        return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.PENDING)
                 .stream().filter(fs -> fs.getReceiverId().equals(userId)).toList();
     }
 
     @Override
     public List<Friendship> getPendingSent(UUID userId) {
-        return friendshipRepository.findByUserIdAndStatus(userId,FriendshipStatus.PENDING)
+        return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.PENDING)
                 .stream().filter(fs -> fs.getSenderId().equals(userId)).toList();
     }
 
     @Override
     public List<Friendship> getBlockedByMe(UUID userId) {
-        return friendshipRepository.findByUserIdAndStatus(userId,FriendshipStatus.BLOCKED)
+        return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.BLOCKED)
                 .stream().filter(fs -> fs.getBlockedBy().equals(userId)).toList();
     }
 }

@@ -37,7 +37,7 @@ public class FriendshipRepositoryAdapter implements FriendshipRepository {
 
     @Override
     public Optional<Friendship> findBySenderReceiverId(UUID senderId, UUID receiverId) {
-        return jpaFriendshipRepository.findBySenderReceiverId(senderId,receiverId)
+        return jpaFriendshipRepository.findBySenderReceiverId(senderId, receiverId)
                 .map(FriendshipMapper::toDomain);
     }
 

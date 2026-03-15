@@ -24,7 +24,7 @@ public class AcceptFriendRequestUseCaseImpl implements AcceptFriendRequestUseCas
         Friendship friendship = friendshipRepository.findBySenderReceiverId(command.senderId(), command.receiverId())
                 .orElseThrow(() -> new FriendshipNotFoundException("No friend request found"));
 
-        if(friendship.getStatus() != FriendshipStatus.PENDING) {
+        if (friendship.getStatus() != FriendshipStatus.PENDING) {
             throw new FriendshipStatusException("The status in this friendship is not \"PENDING\"");
         }
 

@@ -65,6 +65,28 @@ Una vez arrancada la aplicación, puedes explorar todos los endpoints disponible
 
 ---
 
+## Módulos implementados
+
+### `auth` — Autenticación
+Gestiona el ciclo de vida de la autenticación con doble token:
+- **accessToken** JWT de 15 minutos — stateless, validado por firma criptográfica
+- **refreshToken** UUID de 30 días — persistido en BD, con rotación en cada uso
+- El hash de contraseñas es responsabilidad exclusiva de este módulo — el módulo `user` nunca toca passwords
+
+### `user` — Gestión de usuarios
+Gestiona los perfiles de usuario:
+- Búsqueda por username parcial
+- Actualización de perfil (username, email, avatarUrl)
+- Value objects para `Email` y `Username` con validación en dominio
+
+### `friendship` — Sistema de amistades
+Sistema BÁSICO de relaciones entre usuarios con máquina de estados:
+
+```
+PENDING → ACCEPTED → REMOVED → PENDING
+PENDING → DECLINED → PENDING
+```
+
 ## Estado del proyecto
 
 Este proyecto está en desarrollo activo como parte del TFG. Módulos implementados hasta el momento:
@@ -72,11 +94,16 @@ Este proyecto está en desarrollo activo como parte del TFG. Módulos implementa
 - [x] `user` — Gestión de usuarios
 - [x] `auth` — Autenticación JWT
 - [x] `friendship` — Sistema de amistades
-- [ ] `server` — Servidores y miembros
-- [ ] `channel` — Canales de texto
-- [ ] `message` — Mensajería en tiempo real
-- [ ] `presence` — Estado y presencia
-- [ ] `notification` — Notificaciones
+- [ ] `server` — Servidores, miembros y roles
+- [ ] `channel` — Canales de texto dentro de servidores
+- [ ] `conversation` — Mensajes directos entre usuarios
+- [ ] `message` — Mensajería en tiempo real (WebSocket)
+- [ ] `notification` — Notificaciones push
+- [ ] `presence` — Estado de conexión en tiempo real
+- [ ] `attachment` — Subida y gestión de archivos
+- [ ] `invitation` — Invitaciones a servidores
+- [ ] `receipt` — Confirmaciones de lectura
+- [ ] `typing` — Indicador de escritura
 
 ---
 

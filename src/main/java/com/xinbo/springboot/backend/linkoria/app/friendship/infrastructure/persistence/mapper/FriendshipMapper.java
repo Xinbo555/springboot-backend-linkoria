@@ -14,8 +14,7 @@ public class FriendshipMapper {
                 entity.getReceiverId(),
                 entity.getStatus(),
                 entity.getCreatedAt(),
-                entity.getUpdatedAt(),
-                entity.getBlockedBy());
+                entity.getUpdatedAt());
     }
 
     public static FriendshipEntity toEntity(Friendship domain) {
@@ -24,7 +23,6 @@ public class FriendshipMapper {
                 domain.getReceiverId(),
                 domain.getStatus(),
                 domain.getCreatedAt(),
-                domain.getUpdatedAt(),
-                domain.getBlockedBy());
+                domain.getUpdatedAt());
     }
 }

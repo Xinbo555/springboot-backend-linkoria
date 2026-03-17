@@ -38,25 +38,16 @@ public class FriendshipEntity {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "blocked_by", columnDefinition = "CHAR(36)")
-    private UUID blockedBy;
-
     protected FriendshipEntity() {
     }
 
-    public FriendshipEntity(Long id, UUID senderId, UUID receiverId, FriendshipStatus status, Instant createdAt, Instant updatedAt, UUID blockedBy) {
+    public FriendshipEntity(Long id, UUID senderId, UUID receiverId, FriendshipStatus status, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.blockedBy = blockedBy;
-    }
-
-    public UUID getBlockedBy() {
-        return blockedBy;
     }
 
     public Instant getCreatedAt() {

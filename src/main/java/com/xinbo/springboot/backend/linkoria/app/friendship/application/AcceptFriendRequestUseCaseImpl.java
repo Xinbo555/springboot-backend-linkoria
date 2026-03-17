@@ -8,8 +8,6 @@ import com.xinbo.springboot.backend.linkoria.app.shared.exception.friendship.Fri
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.friendship.FriendshipStatusException;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-
 @Service
 public class AcceptFriendRequestUseCaseImpl implements AcceptFriendRequestUseCase {
 

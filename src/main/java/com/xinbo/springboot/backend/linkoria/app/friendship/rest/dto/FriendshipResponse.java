@@ -1,7 +1,6 @@
 package com.xinbo.springboot.backend.linkoria.app.friendship.rest.dto;
 
 import com.xinbo.springboot.backend.linkoria.app.friendship.domain.Friendship;
-import com.xinbo.springboot.backend.linkoria.app.friendship.domain.FriendshipStatus;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -14,19 +13,13 @@ public record FriendshipResponse(
         Instant createdAt,
         Instant updatedAt
 ) {
-    public static FriendshipResponse from(Friendship friendship, UUID currentUserId) {
-
-        FriendshipStatus visibleStatus =
-                friendship.getStatus() == FriendshipStatus.BLOCKED
-                        && !friendship.getBlockedBy().equals(currentUserId)
-                        ? FriendshipStatus.ACCEPTED
-                        : friendship.getStatus();
+    public static FriendshipResponse from(Friendship friendship) {
 
         return new FriendshipResponse(
                 friendship.getId(),
                 friendship.getSenderId(),
                 friendship.getReceiverId(),
-                visibleStatus.toString(),
+                friendship.getStatus().toString(),
                 friendship.getCreatedAt(),
                 friendship.getUpdatedAt()
         );

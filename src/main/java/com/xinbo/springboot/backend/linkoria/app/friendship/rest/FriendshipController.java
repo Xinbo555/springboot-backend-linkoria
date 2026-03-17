@@ -20,22 +20,17 @@ import java.util.UUID;
 @RequestMapping("/api/v1/friendships")
 public class FriendshipController {
     private final AcceptFriendRequestUseCase acceptFriendRequestUseCase;
-    private final BlockUserUseCase blockUserUseCase;
-    private final UnblockUserUseCase unblockUserUseCase;
     private final DeclineFriendRequestUseCase declineFriendRequestUseCase;
     private final GetFriendshipsUseCase getFriendshipsUseCase;
     private final RemoveFriendUseCase removeFriendUseCase;
     private final SendFriendRequestUseCase sendFriendRequestUseCase;
 
     public FriendshipController(AcceptFriendRequestUseCase acceptFriendRequestUseCase,
-                                BlockUserUseCase blockUserUseCase, UnblockUserUseCase unblockUserUseCase,
                                 DeclineFriendRequestUseCase declineFriendRequestUseCase,
                                 GetFriendshipsUseCase getFriendshipsUseCase,
                                 RemoveFriendUseCase removeFriendUseCase,
                                 SendFriendRequestUseCase sendFriendRequestUseCase) {
         this.acceptFriendRequestUseCase = acceptFriendRequestUseCase;
-        this.blockUserUseCase = blockUserUseCase;
-        this.unblockUserUseCase = unblockUserUseCase;
         this.declineFriendRequestUseCase = declineFriendRequestUseCase;
         this.getFriendshipsUseCase = getFriendshipsUseCase;
         this.removeFriendUseCase = removeFriendUseCase;
@@ -52,7 +47,7 @@ public class FriendshipController {
             @RequestBody FriendshipActionRequest request) {
         Friendship friendship = sendFriendRequestUseCase.send(new SendFriendRequestUseCase.SendCommand(currentUser.getId(), request.targetId()));
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(FriendshipResponse.from(friendship, currentUser.getId()));
+                .body(FriendshipResponse.from(friendship));
     }
 
     @Operation(
@@ -64,7 +59,7 @@ public class FriendshipController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = acceptFriendRequestUseCase.accept(new AcceptFriendRequestUseCase.AcceptCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
+        return ResponseEntity.ok(FriendshipResponse.from(friendship));
     }
 
     @Operation(
@@ -76,31 +71,7 @@ public class FriendshipController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = declineFriendRequestUseCase.decline(new DeclineFriendRequestUseCase.DeclineCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
-    }
-
-    @Operation(
-            summary = "Bloquear usuario",
-            description = "Bloquea a un amigo. El bloqueado no sabrá que ha sido bloqueado — seguirá viendo la amistad como activa."
-    )
-    @PatchMapping("/{targetId}/block")
-    public ResponseEntity<FriendshipResponse> block(
-            @AuthenticationPrincipal AuthenticatedUser currentUser,
-            @PathVariable UUID targetId) {
-        Friendship friendship = blockUserUseCase.block(new BlockUserUseCase.BlockCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
-    }
-
-    @Operation(
-            summary = "Desbloquear usuario",
-            description = "Desbloquea a un usuario bloqueado. La amistad pasa a estado REMOVED — será necesario volver a enviar solicitud."
-    )
-    @PatchMapping("/{targetId}/unblock")
-    public ResponseEntity<FriendshipResponse> unblock(
-            @AuthenticationPrincipal AuthenticatedUser currentUser,
-            @PathVariable UUID targetId) {
-        Friendship friendship = unblockUserUseCase.unblock(new UnblockUserUseCase.UnblockCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
+        return ResponseEntity.ok(FriendshipResponse.from(friendship));
     }
 
     @Operation(
@@ -112,7 +83,7 @@ public class FriendshipController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = removeFriendUseCase.remove(new RemoveFriendUseCase.RemoveCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship, currentUser.getId()));
+        return ResponseEntity.ok(FriendshipResponse.from(friendship));
     }
 
     @Operation(
@@ -123,7 +94,7 @@ public class FriendshipController {
     public ResponseEntity<List<FriendshipResponse>> getFriends(
             @AuthenticationPrincipal AuthenticatedUser currentUser) {
         List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getFriends(currentUser.getId())
-                .stream().map(fs -> FriendshipResponse.from(fs, currentUser.getId())).toList();
+                .stream().map(FriendshipResponse::from).toList();
 
         return ResponseEntity.ok(friendshipResponseList);
     }
@@ -136,7 +107,7 @@ public class FriendshipController {
     public ResponseEntity<List<FriendshipResponse>> getPendingReceived(
             @AuthenticationPrincipal AuthenticatedUser currentUser) {
         List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getPendingReceived(currentUser.getId())
-                .stream().map(fs -> FriendshipResponse.from(fs, currentUser.getId())).toList();
+                .stream().map(FriendshipResponse::from).toList();
 
         return ResponseEntity.ok(friendshipResponseList);
     }
@@ -149,20 +120,7 @@ public class FriendshipController {
     public ResponseEntity<List<FriendshipResponse>> getPendingSent(
             @AuthenticationPrincipal AuthenticatedUser currentUser) {
         List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getPendingSent(currentUser.getId())
-                .stream().map(fs -> FriendshipResponse.from(fs, currentUser.getId())).toList();
-
-        return ResponseEntity.ok(friendshipResponseList);
-    }
-
-    @Operation(
-            summary = "Usuarios bloqueados",
-            description = "Devuelve la lista de usuarios que el usuario autenticado ha bloqueado."
-    )
-    @GetMapping("/blocked")
-    public ResponseEntity<List<FriendshipResponse>> getBlocked(
-            @AuthenticationPrincipal AuthenticatedUser currentUser) {
-        List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getBlockedByMe(currentUser.getId())
-                .stream().map(fs -> FriendshipResponse.from(fs, currentUser.getId())).toList();
+                .stream().map(FriendshipResponse::from).toList();
 
         return ResponseEntity.ok(friendshipResponseList);
     }

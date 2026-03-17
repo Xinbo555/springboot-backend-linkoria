@@ -6,7 +6,6 @@ import com.xinbo.springboot.backend.linkoria.app.friendship.domain.FriendshipRep
 import com.xinbo.springboot.backend.linkoria.app.friendship.domain.FriendshipStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,14 +20,7 @@ public class GetFriendshipsUseCaseImpl implements GetFriendshipsUseCase {
 
     @Override
     public List<Friendship> getFriends(UUID userId) {
-        List<Friendship> allAcepted = friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.ACCEPTED);
-        List<Friendship> blockedByOthers = friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.BLOCKED)
-                .stream().filter(fs -> !fs.getBlockedBy().equals(userId)).toList();
-
-        List<Friendship> allFriends = new ArrayList<>(allAcepted);
-        allFriends.addAll(blockedByOthers);
-
-        return allFriends;
+        return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.ACCEPTED);
     }
 
     @Override
@@ -41,11 +33,5 @@ public class GetFriendshipsUseCaseImpl implements GetFriendshipsUseCase {
     public List<Friendship> getPendingSent(UUID userId) {
         return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.PENDING)
                 .stream().filter(fs -> fs.getSenderId().equals(userId)).toList();
-    }
-
-    @Override
-    public List<Friendship> getBlockedByMe(UUID userId) {
-        return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.BLOCKED)
-                .stream().filter(fs -> fs.getBlockedBy().equals(userId)).toList();
     }
 }

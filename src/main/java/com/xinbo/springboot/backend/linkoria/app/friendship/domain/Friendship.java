@@ -10,45 +10,35 @@ public class Friendship {
     private final FriendshipStatus status;
     private final Instant createdAt;
     private final Instant updatedAt;
-    private final UUID blockedBy;
 
-    private Friendship(Long id, UUID senderId, UUID receiverId, FriendshipStatus status, Instant createdAt, Instant updatedAt, UUID blockedBy) {
+    private Friendship(Long id, UUID senderId, UUID receiverId, FriendshipStatus status, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.blockedBy = blockedBy;
     }
 
     public static Friendship create(UUID senderId, UUID receiverId) {
         Instant createdAt = Instant.now();
-        return new Friendship(null, senderId, receiverId, FriendshipStatus.PENDING, createdAt, createdAt, null);
+        return new Friendship(null, senderId, receiverId, FriendshipStatus.PENDING, createdAt, createdAt);
     }
 
-    public static Friendship reconstitute(Long id, UUID senderId, UUID receiverId, FriendshipStatus status, Instant createdAt, Instant updatedAt, UUID blockedBy) {
-        return new Friendship(id, senderId, receiverId, status, createdAt, updatedAt, blockedBy);
+    public static Friendship reconstitute(Long id, UUID senderId, UUID receiverId, FriendshipStatus status, Instant createdAt, Instant updatedAt) {
+        return new Friendship(id, senderId, receiverId, status, createdAt, updatedAt);
     }
 
     public Friendship accept() {
-        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.ACCEPTED, this.createdAt, Instant.now(), this.blockedBy);
+        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.ACCEPTED, this.createdAt, Instant.now());
     }
 
     public Friendship decline() {
-        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.DECLINED, this.createdAt, Instant.now(), this.blockedBy);
-    }
-
-    public Friendship block(UUID blockerId) {
-        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.BLOCKED, this.createdAt, Instant.now(), blockerId);
+        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.DECLINED, this.createdAt, Instant.now());
     }
 
     public Friendship remove() {
-        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.REMOVED, this.createdAt, Instant.now(), this.blockedBy);
-    }
-
-    public Friendship unblock() {
-        return remove();
+        return new Friendship(this.id, this.senderId, this.receiverId, FriendshipStatus.REMOVED, this.createdAt, Instant.now());
     }
 
     public Instant getCreatedAt() {
@@ -73,9 +63,5 @@ public class Friendship {
 
     public Instant getUpdatedAt() {
         return updatedAt;
-    }
-
-    public UUID getBlockedBy() {
-        return blockedBy;
     }
 }

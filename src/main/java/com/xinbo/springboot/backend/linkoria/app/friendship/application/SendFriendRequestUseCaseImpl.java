@@ -9,6 +9,7 @@ import com.xinbo.springboot.backend.linkoria.app.shared.exception.friendship.Fri
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.friendship.ReceiverIdNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -27,11 +28,27 @@ public class SendFriendRequestUseCaseImpl implements SendFriendRequestUseCase {
             throw new ReceiverIdNotFoundException("User Id not found");
         }
 
+        if (command.senderId().equals(command.receiverId())) {
+            throw new FriendshipAlreadyExistsException("You can not send a request to your self");
+        }
+
         if (friendshipRepository.existsByUsersAndStatusIn(command.senderId(), command.receiverId(),
-                List.of(FriendshipStatus.PENDING, FriendshipStatus.ACCEPTED, FriendshipStatus.BLOCKED))) {
+                List.of(FriendshipStatus.PENDING, FriendshipStatus.ACCEPTED))) {
             throw new FriendshipAlreadyExistsException("There is a friendship between these users");
         }
 
-        return friendshipRepository.save(Friendship.create(command.senderId(), command.receiverId()));
+        return friendshipRepository.save(
+                friendshipRepository.findBySenderReceiverId(command.senderId(), command.receiverId())
+                        .or(() -> friendshipRepository.findBySenderReceiverId(command.receiverId(), command.senderId()))
+                        .map(existing -> Friendship.reconstitute(
+                                existing.getId(),
+                                existing.getSenderId(),
+                                existing.getReceiverId(),
+                                FriendshipStatus.PENDING,
+                                existing.getCreatedAt(),
+                                Instant.now()
+                        ))
+                        .orElse(Friendship.create(command.senderId(), command.receiverId()))
+        );
     }
 }

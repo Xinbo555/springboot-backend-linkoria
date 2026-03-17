@@ -23,12 +23,10 @@ public class RemoveFriendUseCaseImpl implements RemoveFriendUseCase {
                 .or(() -> friendshipRepository.findBySenderReceiverId(command.requesterId(), command.targetId()))
                 .orElseThrow(() -> new FriendshipNotFoundException("No friend request found"));
 
-        if (!(friendship.getStatus() == FriendshipStatus.ACCEPTED || friendship.getStatus() == FriendshipStatus.BLOCKED)) {
-            throw new FriendshipStatusException("The status in this friendship must be \"ACCEPTED\" or \"BLOCKED\"");
+        if (friendship.getStatus() != FriendshipStatus.ACCEPTED) {
+            throw new FriendshipStatusException("The status in this friendship is not \"ACCEPTED\"");
         }
 
-        Friendship removedFriendship = friendship.remove();
-
-        return friendshipRepository.save(removedFriendship);
+        return friendshipRepository.save(friendship.remove());
     }
 }

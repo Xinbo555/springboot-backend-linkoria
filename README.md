@@ -71,7 +71,7 @@ Este proyecto está en desarrollo activo como parte del TFG. Módulos implementa
 
 - [x] `user` — Gestión de usuarios
 - [x] `auth` — Autenticación JWT
-- [ ] `friendship` — Sistema de amistades
+- [x] `friendship` — Sistema de amistades
 - [ ] `server` — Servidores y miembros
 - [ ] `channel` — Canales de texto
 - [ ] `message` — Mensajería en tiempo real

@@ -33,4 +33,8 @@ public class FindUserUseCase {
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(Username.of(username));
     }
+
+    public boolean existsById(UUID id) {
+        return userRepository.findById(id).isPresent();
+    }
 }

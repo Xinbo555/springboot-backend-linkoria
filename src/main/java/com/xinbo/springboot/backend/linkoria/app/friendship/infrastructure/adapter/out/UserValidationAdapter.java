@@ -1,6 +1,6 @@
 package com.xinbo.springboot.backend.linkoria.app.friendship.infrastructure.adapter.out;
 
-import com.xinbo.springboot.backend.linkoria.app.friendship.application.port.out.UserValidationPort;
+import com.xinbo.springboot.backend.linkoria.app.shared.user.UserValidationPort;
 import com.xinbo.springboot.backend.linkoria.app.user.application.service.UserService;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.friendship.application;
 
 import com.xinbo.springboot.backend.linkoria.app.friendship.application.port.in.SendFriendRequestUseCase;
-import com.xinbo.springboot.backend.linkoria.app.friendship.application.port.out.UserValidationPort;
+import com.xinbo.springboot.backend.linkoria.app.shared.user.UserValidationPort;
 import com.xinbo.springboot.backend.linkoria.app.friendship.domain.Friendship;
 import com.xinbo.springboot.backend.linkoria.app.friendship.domain.FriendshipRepository;
 import com.xinbo.springboot.backend.linkoria.app.friendship.domain.FriendshipStatus;

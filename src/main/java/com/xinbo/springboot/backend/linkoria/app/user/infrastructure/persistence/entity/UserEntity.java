@@ -13,7 +13,7 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
-    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "BINARY(16)")
+    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "CHAR(32)")
     private UUID id;
 
     @Column(name = "username", nullable = false, unique = true, length = 32)

@@ -73,6 +73,6 @@ public class Server {
 
     //logica de negocio de dominio
     private static String generateInviteCode() {
-
+        return UUID.randomUUID().toString().replace("-","").substring(0,12).toUpperCase();
     }
 }

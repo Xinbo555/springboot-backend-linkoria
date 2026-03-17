@@ -8,7 +8,7 @@ import com.xinbo.springboot.backend.linkoria.app.shared.exception.friendship.Fri
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.friendship.FriendshipStatusException;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.friendship.ReceiverIdNotFoundException;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.EmailAlreadyTakenException;
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.user.ResourceNotFoundException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.ResourceNotFoundException;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.UsernameAlreadyTakenException;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.WeakPasswordException;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.server.domain;
 
-public class Role {
+public enum ServerRole {
+    OWNER,
+    ADMIN,
+    MEMBER
 }

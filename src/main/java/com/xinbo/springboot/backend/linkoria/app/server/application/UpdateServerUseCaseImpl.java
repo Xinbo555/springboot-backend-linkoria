@@ -4,8 +4,8 @@ import com.xinbo.springboot.backend.linkoria.app.server.application.port.in.Upda
 import com.xinbo.springboot.backend.linkoria.app.server.domain.Server;
 import com.xinbo.springboot.backend.linkoria.app.server.domain.ServerMember;
 import com.xinbo.springboot.backend.linkoria.app.server.domain.ServerRepository;
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.ResourceNotFoundException;
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.server.UnauthorizedException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.general.ResourceNotFoundException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.server.ServerUnauthorizedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +22,11 @@ public class UpdateServerUseCaseImpl implements UpdateServerUseCase {
     public Server update(UpdateCommand command) {
         Server server = serverRepository.findServerById(command.serverId()).orElseThrow(() -> new ResourceNotFoundException("No server found"));
 
-        ServerMember requester = serverRepository.findMember(command.serverId(), command.requester())
+        ServerMember requester = serverRepository.findMember(command.serverId(), command.requesterId())
                 .orElseThrow(() -> new ResourceNotFoundException("Requester not found"));
 
         if (!requester.hasAdminPrivileges()) {
-            throw new UnauthorizedException("Only owner or admin can update server");
+            throw new ServerUnauthorizedException("Only owner or admin can update server");
         }
 
         if (command.name() != null) {

@@ -1,4 +1,4 @@
-package com.xinbo.springboot.backend.linkoria.app.friendship.application.port.out;
+package com.xinbo.springboot.backend.linkoria.app.shared.user;
 
 import java.util.UUID;
 

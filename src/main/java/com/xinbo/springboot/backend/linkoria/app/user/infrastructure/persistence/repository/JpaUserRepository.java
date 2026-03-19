@@ -71,4 +71,10 @@ public class JpaUserRepository implements UserRepository {
     public void deleteById(UUID id) {
         springDataUserRepository.deleteById(id);
     }
+
+    @Override
+    public List<User> findAllByIdIn(List<UUID> ids) {
+        return springDataUserRepository.findAllByIdIn(ids)
+                .stream().map(mapper::toDomain).toList();
+    }
 }

@@ -3,8 +3,8 @@ package com.xinbo.springboot.backend.linkoria.app.server.application;
 import com.xinbo.springboot.backend.linkoria.app.server.application.port.in.KickMemberUseCase;
 import com.xinbo.springboot.backend.linkoria.app.server.domain.ServerMember;
 import com.xinbo.springboot.backend.linkoria.app.server.domain.ServerRepository;
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.ResourceNotFoundException;
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.server.UnauthorizedException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.general.ResourceNotFoundException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.server.ServerUnauthorizedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +28,11 @@ public class KickMemberUseCaseImpl implements KickMemberUseCase {
                 .orElseThrow(() -> new ResourceNotFoundException("target user does not belong to the server"));
 
         if (!requester.hasAdminPrivileges()) {
-            throw new UnauthorizedException("requester must has admin privilegies");
+            throw new ServerUnauthorizedException("requester must has admin privilegies");
         }
 
         if (target.isOwner()) {
-            throw new UnauthorizedException("The owner can not be kicked");
+            throw new ServerUnauthorizedException("The owner can not be kicked");
         }
 
         serverRepository.deleteMember(command.serverId(), command.targetId());

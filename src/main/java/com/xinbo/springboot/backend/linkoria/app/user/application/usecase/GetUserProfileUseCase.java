@@ -1,6 +1,6 @@
 package com.xinbo.springboot.backend.linkoria.app.user.application.usecase;
 
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.ResourceNotFoundException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.general.ResourceNotFoundException;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.UserRepository;
 import org.springframework.stereotype.Service;

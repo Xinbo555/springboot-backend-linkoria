@@ -24,4 +24,6 @@ public interface UserRepository {
     boolean existsByUsername(Username username);
 
     void deleteById(UUID id);
+
+    List<User> findAllByIdIn(List<UUID> ids);
 }

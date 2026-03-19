@@ -1,4 +1,6 @@
-package com.xinbo.springboot.backend.linkoria.app.server.rest.dto.Request;
+package com.xinbo.springboot.backend.linkoria.app.server.rest.dto.request;
 
-public record UpdateMemberRoleRequest() {
+import com.xinbo.springboot.backend.linkoria.app.server.domain.ServerRole;
+
+public record UpdateMemberRoleRequest(ServerRole newRole) {
 }

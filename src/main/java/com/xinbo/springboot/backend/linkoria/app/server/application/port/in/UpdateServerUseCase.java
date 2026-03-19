@@ -7,5 +7,5 @@ import java.util.UUID;
 public interface UpdateServerUseCase {
     Server update(UpdateCommand command);
 
-    record UpdateCommand(Long serverId, UUID requester, String name, String iconUrl) {}
+    record UpdateCommand(Long serverId, UUID requesterId, String name, String iconUrl) {}
 }

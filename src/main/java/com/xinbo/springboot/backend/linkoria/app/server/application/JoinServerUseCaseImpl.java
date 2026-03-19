@@ -5,7 +5,7 @@ import com.xinbo.springboot.backend.linkoria.app.server.domain.Server;
 import com.xinbo.springboot.backend.linkoria.app.server.domain.ServerMember;
 import com.xinbo.springboot.backend.linkoria.app.server.domain.ServerRepository;
 import com.xinbo.springboot.backend.linkoria.app.server.domain.ServerRole;
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.ResourceNotFoundException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.general.ResourceNotFoundException;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.server.AlreadyMemberException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -20,9 +20,6 @@ public class ServerEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
-    private String description;
-
     @JdbcTypeCode(SqlTypes.CHAR)
     @Column(name = "owner_id", nullable = false, columnDefinition = "CHAR(36)")
     private UUID ownerId;
@@ -42,10 +39,9 @@ public class ServerEntity {
     protected ServerEntity() {
     }
 
-    public ServerEntity(Long id, String name, String description, UUID ownerId, String iconUrl, String inviteCode, Instant createdAt, Instant updatedAt) {
+    public ServerEntity(Long id, String name, UUID ownerId, String iconUrl, String inviteCode, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.ownerId = ownerId;
         this.iconUrl = iconUrl;
         this.inviteCode = inviteCode;
@@ -55,10 +51,6 @@ public class ServerEntity {
 
     public Instant getCreatedAt() {
         return createdAt;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getIconUrl() {

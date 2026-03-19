@@ -1,4 +1,4 @@
-package com.xinbo.springboot.backend.linkoria.app.server.rest.dto.Request;
+package com.xinbo.springboot.backend.linkoria.app.server.rest.dto.request;
 
-public record JoinServerRequest() {
+public record JoinServerRequest(String inviteCode) {
 }

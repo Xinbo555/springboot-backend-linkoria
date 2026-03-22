@@ -87,6 +87,23 @@ PENDING → ACCEPTED → REMOVED → PENDING
 PENDING → DECLINED → PENDING
 ```
 
+### `server` — Gestión de servidores
+
+Gestiona servidores y su membresía con sistema de roles:
+
+- **Creación** — el creador se convierte automáticamente en `OWNER` y se genera un `inviteCode` único de 12 caracteres
+- **Acceso** — cualquier usuario puede unirse mediante `inviteCode`, no hay directorio público
+- **Roles** — máquina de estados de roles:
+```
+MEMBER → ADMIN    (promovido por OWNER)
+ADMIN  → MEMBER   (degradado por OWNER)
+MEMBER/ADMIN → OWNER  (transferencia — el OWNER actual pasa a ADMIN)
+```
+
+- **Restricciones** — el `OWNER` no puede abandonar el servidor sin transferir la propiedad previamente
+- **Eliminación** — solo el `OWNER` puede borrar el servidor, lo que elimina en cascada todos los miembros
+- **Unicidad del inviteCode** — validada a nivel de caso de uso y reforzada con constraint `UNIQUE` en BD
+
 ## Estado del proyecto
 
 Este proyecto está en desarrollo activo como parte del TFG. Módulos implementados hasta el momento:
@@ -94,7 +111,7 @@ Este proyecto está en desarrollo activo como parte del TFG. Módulos implementa
 - [x] `user` — Gestión de usuarios
 - [x] `auth` — Autenticación JWT
 - [x] `friendship` — Sistema de amistades
-- [ ] `server` — Servidores, miembros y roles
+- [x] `server` — Servidores, miembros y roles
 - [ ] `channel` — Canales de texto dentro de servidores
 - [ ] `conversation` — Mensajes directos entre usuarios
 - [ ] `message` — Mensajería en tiempo real (WebSocket)

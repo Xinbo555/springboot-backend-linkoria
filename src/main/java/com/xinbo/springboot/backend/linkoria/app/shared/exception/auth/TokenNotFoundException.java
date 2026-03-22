@@ -1,6 +1,8 @@
 package com.xinbo.springboot.backend.linkoria.app.shared.exception.auth;
 
-public class TokenNotFoundException extends RuntimeException {
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.NotFoundException;
+
+public class TokenNotFoundException extends NotFoundException {
     public TokenNotFoundException(String message) {
         super(message);
     }

@@ -1,6 +1,8 @@
 package com.xinbo.springboot.backend.linkoria.app.user.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,7 +15,8 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
-    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "BINARY(16)")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "CHAR(36)")
     private UUID id;
 
     @Column(name = "username", nullable = false, unique = true, length = 32)

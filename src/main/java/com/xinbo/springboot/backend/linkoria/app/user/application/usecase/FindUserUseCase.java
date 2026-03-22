@@ -6,6 +6,7 @@ import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Email;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Username;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,5 +37,9 @@ public class FindUserUseCase {
 
     public boolean existsById(UUID id) {
         return userRepository.findById(id).isPresent();
+    }
+
+    public List<User> findByIds(List<UUID> ids) {
+        return userRepository.findAllByIdIn(ids);
     }
 }

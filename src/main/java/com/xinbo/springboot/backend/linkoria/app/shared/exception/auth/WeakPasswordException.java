@@ -1,6 +1,8 @@
 package com.xinbo.springboot.backend.linkoria.app.shared.exception.auth;
 
-public class WeakPasswordException extends RuntimeException {
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.BadRequestException;
+
+public class WeakPasswordException extends BadRequestException {
     public WeakPasswordException(String message) {
         super(message);
     }

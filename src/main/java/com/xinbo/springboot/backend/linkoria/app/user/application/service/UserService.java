@@ -58,4 +58,8 @@ public class UserService {
     }
 
     public boolean existsById(UUID id){return findUserUseCase.existsById(id);}
+
+    public List<User> findByIds(List<UUID> ids) {
+        return findUserUseCase.findByIds(ids);
+    }
 }

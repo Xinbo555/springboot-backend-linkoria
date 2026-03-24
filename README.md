@@ -104,6 +104,16 @@ MEMBER/ADMIN → OWNER  (transferencia — el OWNER actual pasa a ADMIN)
 - **Eliminación** — solo el `OWNER` puede borrar el servidor, lo que elimina en cascada todos los miembros
 - **Unicidad del inviteCode** — validada a nivel de caso de uso y reforzada con constraint `UNIQUE` en BD
 
+### `channel` — Canales de texto
+
+Gestiona los canales de texto dentro de un servidor y su agrupación por categorías:
+
+- **Creación** — solo `OWNER` y `ADMIN` pueden crear canales y categorías dentro de un servidor
+- **Eliminación** — solo `OWNER` y `ADMIN` pueden eliminar canales y categorías
+- **Lectura** — cualquier miembro del servidor puede leer y listar canales
+- **Categorías** — los canales pueden agruparse bajo una `ChannelCategory` dentro del mismo servidor. La categoría es opcional, un canal puede existir sin categoría
+- **Restricciones** — al eliminar un servidor se eliminan en cascada todos sus canales y categorías. Al eliminar una categoría, sus canales pasan a `categoryId = null` sin eliminarse
+
 ## Estado del proyecto
 
 Este proyecto está en desarrollo activo como parte del TFG. Módulos implementados hasta el momento:
@@ -112,7 +122,7 @@ Este proyecto está en desarrollo activo como parte del TFG. Módulos implementa
 - [x] `auth` — Autenticación JWT
 - [x] `friendship` — Sistema de amistades
 - [x] `server` — Servidores, miembros y roles
-- [ ] `channel` — Canales de texto dentro de servidores
+- [x] `channel` — Canales de texto dentro de servidores
 - [ ] `conversation` — Mensajes directos entre usuarios
 - [ ] `message` — Mensajería en tiempo real (WebSocket)
 - [ ] `notification` — Notificaciones push

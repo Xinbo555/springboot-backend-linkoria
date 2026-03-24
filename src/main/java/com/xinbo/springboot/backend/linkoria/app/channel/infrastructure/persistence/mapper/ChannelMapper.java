@@ -8,7 +8,7 @@ public class ChannelMapper {
         return Channel.reconstitute(
                 entity.getId(),
                 entity.getServerId(),
-                entity.getServerId(),
+                entity.getCategoryId(),
                 entity.getName(),
                 entity.getCreatedAt()
         );

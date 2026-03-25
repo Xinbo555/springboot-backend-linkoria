@@ -5,32 +5,31 @@ import java.time.Instant;
 public class Conversation {
     private final Long id;
     private final ConversationType type;
-    private final String name;
     private final Long channelId;
+    private final Long serverId;
     private final Instant createdAt;
 
-    private Conversation(Long id, ConversationType type, String name, Long channelId, Instant createdAt) {
+    private Conversation(Long id, ConversationType type, Long channelId, Long serverId, Instant createdAt) {
         this.id = id;
         this.type = type;
-        this.name = name;
         this.channelId = channelId;
+        this.serverId = serverId;
         this.createdAt = createdAt;
     }
 
-    public static Conversation create(ConversationType type){
-        return new Conversation(null, type, null, null, Instant.now());
+    public static Conversation createDirect(){
+        return new Conversation(null, ConversationType.DM, null, null, Instant.now());
     }
 
-    public static Conversation createWithChannelId(ConversationType type, Long channelId) {
-        return new Conversation(null, type, null, channelId, Instant.now());
+    public static Conversation createChannel(Long channelId, Long serverId) {
+        if (channelId == null || serverId == null) {
+            throw new IllegalArgumentException("Channel conversation requires channelId and serverId");
+        }
+        return new Conversation(null, ConversationType.CHANNEL,  channelId, serverId, Instant.now());
     }
 
-    public static Conversation createWithName(ConversationType type, String name) {
-        return new Conversation(null, type, name, null, Instant.now());
-    }
-
-    public static Conversation reconstitute(Long id, ConversationType type, String name, Long channelId, Instant createdAt) {
-        return new Conversation(id, type, name, channelId, createdAt);
+    public static Conversation reconstitute(Long id, ConversationType type, Long channelId, Long serverId, Instant createdAt) {
+        return new Conversation(id, type,  channelId, serverId, createdAt);
     }
 
     public Long getId() {
@@ -49,7 +48,7 @@ public class Conversation {
         return createdAt;
     }
 
-    public String getName() {
-        return name;
+    public Long getServerId() {
+        return serverId;
     }
 }

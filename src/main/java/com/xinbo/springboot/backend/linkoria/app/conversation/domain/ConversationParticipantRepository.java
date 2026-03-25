@@ -12,4 +12,10 @@ public interface ConversationParticipantRepository {
     List<ConversationParticipant> findByConversationId(Long id);
 
     List<Long> findConversationIdsByUserId(UUID id);
+
+    boolean existsByConversationIdAndUserId(Long conversationId, UUID userId);
+
+    List<UUID> findUserIdsByConversationId(Long conversationId);
+
+    void deleteByConversationIdAndUserId(Long conversationId, UUID userId);
 }

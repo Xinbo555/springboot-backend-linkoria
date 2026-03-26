@@ -6,30 +6,28 @@ public class Conversation {
     private final Long id;
     private final ConversationType type;
     private final Long channelId;
-    private final Long serverId;
     private final Instant createdAt;
 
-    private Conversation(Long id, ConversationType type, Long channelId, Long serverId, Instant createdAt) {
+    private Conversation(Long id, ConversationType type, Long channelId, Instant createdAt) {
         this.id = id;
         this.type = type;
         this.channelId = channelId;
-        this.serverId = serverId;
         this.createdAt = createdAt;
     }
 
     public static Conversation createDirect(){
-        return new Conversation(null, ConversationType.DM, null, null, Instant.now());
+        return new Conversation(null, ConversationType.DM,null, Instant.now());
     }
 
     public static Conversation createChannel(Long channelId, Long serverId) {
         if (channelId == null || serverId == null) {
             throw new IllegalArgumentException("Channel conversation requires channelId and serverId");
         }
-        return new Conversation(null, ConversationType.CHANNEL,  channelId, serverId, Instant.now());
+        return new Conversation(null, ConversationType.CHANNEL,  channelId, Instant.now());
     }
 
     public static Conversation reconstitute(Long id, ConversationType type, Long channelId, Long serverId, Instant createdAt) {
-        return new Conversation(id, type,  channelId, serverId, createdAt);
+        return new Conversation(id, type,  channelId, createdAt);
     }
 
     public Long getId() {
@@ -48,7 +46,4 @@ public class Conversation {
         return createdAt;
     }
 
-    public Long getServerId() {
-        return serverId;
-    }
 }

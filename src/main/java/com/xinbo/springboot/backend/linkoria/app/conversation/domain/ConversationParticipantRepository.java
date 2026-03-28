@@ -7,8 +7,6 @@ import java.util.UUID;
 public interface ConversationParticipantRepository {
     ConversationParticipant save(ConversationParticipant conversationParticipant);
 
-    Optional<ConversationParticipant> findById(Long id);
-
     List<ConversationParticipant> findByConversationId(Long id);
 
     List<Long> findConversationIdsByUserId(UUID id);
@@ -16,6 +14,4 @@ public interface ConversationParticipantRepository {
     boolean existsByConversationIdAndUserId(Long conversationId, UUID userId);
 
     List<UUID> findUserIdsByConversationId(Long conversationId);
-
-    void deleteByConversationIdAndUserId(Long conversationId, UUID userId);
 }

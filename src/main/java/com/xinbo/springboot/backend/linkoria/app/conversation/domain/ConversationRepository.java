@@ -14,6 +14,4 @@ public interface ConversationRepository {
     Optional<Conversation> findByChannelId(Long id);
 
     Optional<Conversation> findDmBetweenUsers(UUID userA, UUID userB);
-
-    List<Conversation> findByUserId(UUID userId);
 }

@@ -19,14 +19,14 @@ public class Conversation {
         return new Conversation(null, ConversationType.DM,null, Instant.now());
     }
 
-    public static Conversation createChannel(Long channelId, Long serverId) {
-        if (channelId == null || serverId == null) {
+    public static Conversation createChannel(Long channelId) {
+        if (channelId == null) {
             throw new IllegalArgumentException("Channel conversation requires channelId and serverId");
         }
         return new Conversation(null, ConversationType.CHANNEL,  channelId, Instant.now());
     }
 
-    public static Conversation reconstitute(Long id, ConversationType type, Long channelId, Long serverId, Instant createdAt) {
+    public static Conversation reconstitute(Long id, ConversationType type, Long channelId, Instant createdAt) {
         return new Conversation(id, type,  channelId, createdAt);
     }
 

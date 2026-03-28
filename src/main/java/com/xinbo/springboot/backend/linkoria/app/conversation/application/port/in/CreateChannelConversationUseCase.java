@@ -5,7 +5,7 @@ import com.xinbo.springboot.backend.linkoria.app.conversation.domain.Conversatio
 import java.util.UUID;
 
 public interface CreateChannelConversationUseCase {
-    Conversation create(CreateChConversationCommand command);
+    Conversation execute(CreateChannelConversationCommand command);
 
-    record CreateChConversationCommand(UUID requesterId, Long channelId) {}
+    record CreateChannelConversationCommand(Long channelId) {}
 }

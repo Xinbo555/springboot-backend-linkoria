@@ -2,6 +2,7 @@ package com.xinbo.springboot.backend.linkoria.app.conversation.infrastructure.pe
 
 import com.xinbo.springboot.backend.linkoria.app.conversation.domain.ConversationParticipant;
 import com.xinbo.springboot.backend.linkoria.app.conversation.domain.ConversationParticipantRepository;
+import com.xinbo.springboot.backend.linkoria.app.conversation.infrastructure.persistence.entity.ConversationParticipantEntity;
 import com.xinbo.springboot.backend.linkoria.app.conversation.infrastructure.persistence.mapper.ConversationParticipantMapper;
 import com.xinbo.springboot.backend.linkoria.app.conversation.infrastructure.persistence.repository.JpaConversationParticipantRepository;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,7 @@ public class ConversationParticipantRepositoryAdapter implements ConversationPar
     @Override
     public List<Long> findConversationIdsByUserId(UUID id) {
         return jpaConversationParticipantRepository.findByUserId(id).stream()
-                .map(entity -> entity.getConversationId())
+                .map(ConversationParticipantEntity::getConversationId)
                 .toList();
     }
 

@@ -5,7 +5,6 @@ import com.xinbo.springboot.backend.linkoria.app.conversation.domain.Conversatio
 import java.util.UUID;
 
 public interface CreateDmConversationUseCase {
-    Conversation create();
-
+    Conversation execute(CreateDmConversationCommand command);
     record CreateDmConversationCommand(UUID requesterId, UUID targetId) {}
 }

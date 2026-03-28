@@ -1,4 +1,4 @@
 package com.xinbo.springboot.backend.linkoria.app.conversation.application;
 
-public class GetUserConversationUseCase {
+public class FindParticipantsByConversationIdUseCaseImpl {
 }

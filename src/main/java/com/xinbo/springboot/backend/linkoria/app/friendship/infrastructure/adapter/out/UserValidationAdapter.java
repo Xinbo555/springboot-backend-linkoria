@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component
+@Component("friendshipUserValidationAdapter")
 public class UserValidationAdapter implements UserValidationPort {
     private final UserService userService;
 

@@ -1,0 +1,35 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: linkoria-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: linkoria
+      MYSQL_USER: linkoria
+      MYSQL_PASSWORD: linkoria
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: linkoria-app
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/linkoria
+      SPRING_DATASOURCE_USERNAME: linkoria
+      SPRING_DATASOURCE_PASSWORD: linkoria
+      JWT_SECRET: l1nk0r1a-s3cr3t-k3y-p4r4-JWT-d3s4rr0ll0-2026
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

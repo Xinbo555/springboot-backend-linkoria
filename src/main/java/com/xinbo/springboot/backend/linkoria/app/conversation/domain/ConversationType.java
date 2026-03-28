@@ -1,4 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.conversation.domain;
 
-public class ConversationMember {
+public enum ConversationType {
+    GROUP,
+    DM,
+    CHANNEL
 }

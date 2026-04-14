@@ -20,4 +20,6 @@ public interface ServerRepository {
     void deleteMember(Long serverId, UUID userId);
 
     Optional<ServerMember> findMember(Long serverId, UUID userId);
+
+    List<Server> findServersByUserId(UUID userId);
 }

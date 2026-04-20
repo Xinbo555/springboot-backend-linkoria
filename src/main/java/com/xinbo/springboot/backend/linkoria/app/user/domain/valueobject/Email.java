@@ -1,5 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject;
 
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.user.EmailFormatException;
+
 import java.util.Objects;
 
 public final class Email {
@@ -19,10 +21,10 @@ public final class Email {
 
     private static void validate(String value) {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Email cannot be empty");
+            throw new EmailFormatException("Email cannot be empty");
         }
         if (!value.trim().matches(VALID_PATTERN)) {
-            throw new IllegalArgumentException("Invalid email format: " + value);
+            throw new EmailFormatException("Invalid email format: " + value);
         }
     }
 

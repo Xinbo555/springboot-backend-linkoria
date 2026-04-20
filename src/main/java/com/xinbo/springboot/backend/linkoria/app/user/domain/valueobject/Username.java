@@ -1,5 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject;
 
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.user.UserNameFormatException;
+
 import java.util.Objects;
 
 public final class Username {
@@ -21,16 +23,16 @@ public final class Username {
 
     private static void validate(String value) {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Username cannot be empty");
+            throw new UserNameFormatException("Username cannot be empty");
         }
         String trimmed = value.trim();
         if (trimmed.length() < MIN_LENGTH || trimmed.length() > MAX_LENGTH) {
-            throw new IllegalArgumentException(
+            throw new UserNameFormatException(
                     "Username must be between " + MIN_LENGTH + " and " + MAX_LENGTH + " characters"
             );
         }
         if (!trimmed.matches(VALID_PATTERN)) {
-            throw new IllegalArgumentException(
+            throw new UserNameFormatException(
                     "Username can only contain letters, numbers, dots, underscores and hyphens"
             );
         }

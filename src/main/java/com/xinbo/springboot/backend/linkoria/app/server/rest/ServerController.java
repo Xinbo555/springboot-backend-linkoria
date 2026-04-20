@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "Servers", description = "Gestión de servidores — creación, actualización, eliminación y membresía")
 @RestController
 @RequestMapping("/api/v1/servers")
@@ -25,15 +27,16 @@ public class ServerController {
     private final UpdateServerUseCase updateServerUseCase;
     private final JoinServerUseCase joinServerUseCase;
     private final LeaveServerUseCase leaveServerUseCase;
+    private final GetServersByUserIdUseCase getServersByUserIdUseCase;
 
-
-    public ServerController(CreateServerUseCase createServerUseCase, DeleteServerUseCase deleteServerUseCase, GetServerUseCase getServerUseCase, UpdateServerUseCase updateServerUseCase, JoinServerUseCase joinServerUseCase, LeaveServerUseCase leaveServerUseCase) {
+    public ServerController(CreateServerUseCase createServerUseCase, DeleteServerUseCase deleteServerUseCase, GetServerUseCase getServerUseCase, UpdateServerUseCase updateServerUseCase, JoinServerUseCase joinServerUseCase, LeaveServerUseCase leaveServerUseCase, GetServersByUserIdUseCase getServersByUserIdUseCase) {
         this.createServerUseCase = createServerUseCase;
         this.deleteServerUseCase = deleteServerUseCase;
         this.getServerUseCase = getServerUseCase;
         this.updateServerUseCase = updateServerUseCase;
         this.joinServerUseCase = joinServerUseCase;
         this.leaveServerUseCase = leaveServerUseCase;
+        this.getServersByUserIdUseCase = getServersByUserIdUseCase;
     }
 
     @Operation(
@@ -58,6 +61,17 @@ public class ServerController {
             @PathVariable Long serverId) {
         Server server = getServerUseCase.getServer(new GetServerUseCase.GetServerQuery(currentUser.getId(), serverId));
         return ResponseEntity.ok(ServerResponse.from(server));
+    }
+
+    @Operation(
+            summary = "Obtener servidores del usuario",
+            description = "Lista todos los servidores del usuario autenticado"
+    )
+    @GetMapping
+    public ResponseEntity<List<ServerResponse>> getServers(
+            @AuthenticationPrincipal AuthenticatedUser currentUser) {
+        List<Server> servers = getServersByUserIdUseCase.getServers(new GetServersByUserIdUseCase.GetServersQuery(currentUser.getId()));
+        return ResponseEntity.ok(servers.stream().map(ServerResponse::from).toList());
     }
 
     @Operation(

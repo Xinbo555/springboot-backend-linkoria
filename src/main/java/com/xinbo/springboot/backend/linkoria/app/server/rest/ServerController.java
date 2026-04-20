@@ -26,6 +26,7 @@ public class ServerController {
     private final JoinServerUseCase joinServerUseCase;
     private final LeaveServerUseCase leaveServerUseCase;
 
+
     public ServerController(CreateServerUseCase createServerUseCase, DeleteServerUseCase deleteServerUseCase, GetServerUseCase getServerUseCase, UpdateServerUseCase updateServerUseCase, JoinServerUseCase joinServerUseCase, LeaveServerUseCase leaveServerUseCase) {
         this.createServerUseCase = createServerUseCase;
         this.deleteServerUseCase = deleteServerUseCase;

@@ -80,4 +80,10 @@ public class ServerRepositoryAdapter implements ServerRepository {
         return jpaServerMemberRepository.findByServer_IdAndUserId(serverId, userId)
                 .map(ServerMemberMapper::toDomain);
     }
+
+    @Override
+    public List<Server> findServersByUserId(UUID userId) {
+        return jpaServerRepository.findAllByUserParticipation(userId).stream()
+                .map(ServerMapper::toDomain).toList();
+    }
 }

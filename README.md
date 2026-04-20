@@ -15,15 +15,15 @@ Este repositorio contiene el **backend** desarrollado con Spring Boot, siguiendo
 
 ## Tecnologías principales
 
-- Java 21
+- Java 23
 - Spring Boot 4.x
 - Spring Data JPA + Hibernate
 - MySQL 8
 - WebSocket (STOMP)
 - JWT (autenticación)
 - Springdoc OpenAPI (Swagger)
-
----
+- Docker & Docker Compose
+- Flyway (migraciones de base de datos)
 
 ## Configuración de la base de datos
 
@@ -110,17 +110,11 @@ La aplicación arrancará en `http://localhost:8080`.
 
 ---
 
-## Documentación API
-
-Swagger UI disponible en:
-- Local: `http://localhost:8080/swagger-ui.html`
-- Docker: `http://localhost:8081/swagger-ui.html`
-
 ## Documentación de la API
 
-Una vez arrancada la aplicación, puedes explorar todos los endpoints disponibles en Swagger UI:
-
-👉 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+Swagger UI disponible en:
+- Local: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- Docker: [http://localhost:8081/swagger-ui.html](http://localhost:8081/swagger-ui.html)
 
 ---
 

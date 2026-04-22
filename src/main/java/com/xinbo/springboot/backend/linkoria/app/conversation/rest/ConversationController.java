@@ -1,6 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.conversation.rest;
 
 import com.xinbo.springboot.backend.linkoria.app.conversation.application.port.in.CreateDmConversationUseCase;
+import com.xinbo.springboot.backend.linkoria.app.conversation.application.port.in.GetChannelConversationUseCase;
 import com.xinbo.springboot.backend.linkoria.app.conversation.application.port.in.GetConversationsByUserUseCase;
 import com.xinbo.springboot.backend.linkoria.app.conversation.application.port.in.GetDmConversationUseCase;
 import com.xinbo.springboot.backend.linkoria.app.conversation.rest.dto.request.CreateDmRequest;
@@ -24,13 +25,15 @@ public class ConversationController {
     private final CreateDmConversationUseCase createDmConversationUseCase;
     private final GetConversationsByUserUseCase getConversationsByUserUseCase;
     private final GetDmConversationUseCase getDmConversationUseCase;
+    private final GetChannelConversationUseCase getChannelConversationUseCase;
 
     public ConversationController(CreateDmConversationUseCase createDmConversationUseCase,
                                   GetConversationsByUserUseCase getConversationsByUserUseCase,
-                                  GetDmConversationUseCase getDmConversationUseCase) {
+                                  GetDmConversationUseCase getDmConversationUseCase, GetChannelConversationUseCase getChannelConversationUseCase) {
         this.createDmConversationUseCase = createDmConversationUseCase;
         this.getConversationsByUserUseCase = getConversationsByUserUseCase;
         this.getDmConversationUseCase = getDmConversationUseCase;
+        this.getChannelConversationUseCase = getChannelConversationUseCase;
     }
 
     @Operation(
@@ -78,6 +81,23 @@ public class ConversationController {
                 ConversationResponse.from(
                         getDmConversationUseCase.execute(
                                 new GetDmConversationUseCase.GetDmConversationQuery(currentUser.getId(), targetId)
+                        )
+                )
+        );
+    }
+
+    @Operation(
+            summary = "Obtener conversación del canal",
+            description = "Devuelve la conversación del canal especificado. Solo los miembros del canal pueden acceder."
+    )
+    @GetMapping("/channel/{channelId}")
+    public ResponseEntity<ConversationResponse> getChannelConversation(
+            @AuthenticationPrincipal AuthenticatedUser currentUser,
+            @PathVariable Long channelId) {
+        return ResponseEntity.ok(
+                ConversationResponse.from(
+                        getChannelConversationUseCase.execute(
+                                new GetChannelConversationUseCase.GetChannelConversationQuery(currentUser.getId(), channelId)
                         )
                 )
         );

@@ -1,7 +1,9 @@
-package com.xinbo.springboot.backend.linkoria.app.shared.exception;
+package com.xinbo.springboot.backend.linkoria.app.shared.exception.message;
 
-public class MessageContentExceedsLimitException extends RuntimeException {
-  public MessageContentExceedsLimitException(String message) {
-    super(message);
-  }
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.BadRequestException;
+
+public class MessageContentExceedsLimitException extends BadRequestException {
+    public MessageContentExceedsLimitException(String message) {
+        super(message);
+    }
 }

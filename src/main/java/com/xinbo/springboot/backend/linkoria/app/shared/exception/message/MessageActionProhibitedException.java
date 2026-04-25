@@ -1,7 +1,9 @@
 package com.xinbo.springboot.backend.linkoria.app.shared.exception.message;
 
-public class MessageActionProhibitedException extends RuntimeException {
-  public MessageActionProhibitedException(String message) {
-    super(message);
-  }
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.UnauthorizedException;
+
+public class MessageActionProhibitedException extends UnauthorizedException {
+    public MessageActionProhibitedException(String message) {
+        super(message);
+    }
 }

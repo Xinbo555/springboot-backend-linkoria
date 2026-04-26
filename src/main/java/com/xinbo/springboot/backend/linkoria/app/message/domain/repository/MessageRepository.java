@@ -11,8 +11,6 @@ public interface MessageRepository {
 
     Optional<Message> findById(Long messageId);
 
-    List<Message> findByConversationId(Long conversationId);
-
     /**
      * Obtiene mensajes de una conversación con pagination por cursor.
      *
@@ -27,13 +25,11 @@ public interface MessageRepository {
                                                       int limit,
                                                       PaginationDirection direction);
 
-    List<Message> findByReplyToMessageId(Long replyToMessageId);
+    Long countByConversationId(Long conversationId);
 
-    List<Message> findByConversationIdAndUserId(Long conversationId, java.util.UUID userId);
+    Long deleteByConversationId(Long conversationId);
 
-    boolean existsById(Long messageId);
-
-    long countByConversationId(Long conversationId);
+    Optional<Message> findLastMessageInConversation(Long conversationId);
 
     void deleteById(Long messageId);
 

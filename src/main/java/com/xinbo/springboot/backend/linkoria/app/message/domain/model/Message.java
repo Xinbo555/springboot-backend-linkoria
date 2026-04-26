@@ -1,6 +1,5 @@
 package com.xinbo.springboot.backend.linkoria.app.message.domain.model;
 
-import com.xinbo.springboot.backend.linkoria.app.shared.exception.message.MessageContentExceedsLimitException;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.message.NonEditableMessageTypeException;
 
 import java.time.Instant;
@@ -8,8 +7,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Message {
-
-    public static final int MAX_CONTENT_LENGTH = 2000;
 
     private final Long id;
     private final Long conversationId;
@@ -31,14 +28,6 @@ public class Message {
         this.replyToMessageId = replyToMessageId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-
-        validateState();
-    }
-
-    private void validateState() {
-        if (this.content != null && this.content.length() > MAX_CONTENT_LENGTH) {
-            throw new MessageContentExceedsLimitException("message content limit exceeded");
-        }
     }
 
     public static Message createNew(Long conversationId, UUID userId, String content, MessageType messageType) {
@@ -74,6 +63,10 @@ public class Message {
 
     public boolean isReply() {
         return this.replyToMessageId != null;
+    }
+
+    public boolean isAuthor(UUID userId) {
+        return this.userId.equals(userId);
     }
 
     public String getContent() {

@@ -5,7 +5,6 @@ import com.xinbo.springboot.backend.linkoria.app.message.domain.model.MessageTyp
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.general.ResourceNotFoundException;
 
 import java.time.Instant;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 

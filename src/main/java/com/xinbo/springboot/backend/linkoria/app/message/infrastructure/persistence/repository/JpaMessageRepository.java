@@ -32,7 +32,7 @@ public interface JpaMessageRepository extends JpaRepository<MessageEntity, Long>
             @Param("direction") String direction
     );
 
-    Long deleteByConversation(Long conversationId);
+    Long deleteByConversationId(Long conversationId);
 
     Long countByConversationId(Long conversationId);
 

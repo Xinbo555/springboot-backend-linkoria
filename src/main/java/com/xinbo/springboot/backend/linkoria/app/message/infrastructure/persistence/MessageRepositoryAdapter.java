@@ -45,7 +45,7 @@ public class MessageRepositoryAdapter implements MessageRepository {
 
     @Override
     public Long deleteByConversationId(Long conversationId) {
-        return jpaMessageRepository.deleteByConversation(conversationId);
+        return jpaMessageRepository.deleteByConversationId(conversationId);
     }
 
     @Override

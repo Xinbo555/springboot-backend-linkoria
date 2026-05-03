@@ -1,6 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.message.rest.dto.response;
 
 import com.xinbo.springboot.backend.linkoria.app.message.domain.model.Message;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
  * Contiene toda la información necesaria del mensaje
  * sin exponer detalles internos del dominio.
  */
+@Schema(name = "MessageResponse", description = "DTO completo de respuesta de mensajes")
 public record MessageResponse(
         Long messageId,
         Long conversationId,

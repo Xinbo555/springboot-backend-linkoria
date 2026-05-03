@@ -1,5 +1,6 @@
 package com.xinbo.springboot.backend.linkoria.app.auth.rest.dto;
 
+import java.time.Instant;
 import java.util.UUID;
 
 /**
@@ -15,20 +16,22 @@ public class AuthResponse {
             String refreshToken,
             String tokenType,
             UUID userId,
-            String username
+            String username,
+            Instant refreshTokenExpiresAt
     ) {
-        public static AuthTokenResponse of(String accessToken, String refreshToken, UUID userId, String username) {
-            return new AuthTokenResponse(accessToken, refreshToken, "Bearer", userId, username);
+        public static AuthTokenResponse of(String accessToken, String refreshToken, UUID userId, String username, Instant refreshTokenExpiresAt) {
+            return new AuthTokenResponse(accessToken, refreshToken, "Bearer", userId, username, refreshTokenExpiresAt);
         }
     }
 
     public record TokenRefreshResponse(
             String accessToken,
             String refreshToken,
-            String tokenType
+            String tokenType,
+            Instant refreshTokenExpiresAt
     ) {
-        public static TokenRefreshResponse of(String accessToken, String refreshToken) {
-            return new TokenRefreshResponse(accessToken, refreshToken, "Bearer");
+        public static TokenRefreshResponse of(String accessToken, String refreshToken, Instant refreshTokenExpiresAt) {
+            return new TokenRefreshResponse(accessToken, refreshToken, "Bearer", refreshTokenExpiresAt);
         }
     }
 

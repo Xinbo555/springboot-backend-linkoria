@@ -42,12 +42,11 @@ public class FriendshipController {
             description = "Envía una solicitud de amistad al usuario indicado. El remitente se extrae del token."
     )
     @PostMapping
-    public ResponseEntity<FriendshipResponse> send(
+    public ResponseEntity<Void> send(
             @AuthenticationPrincipal AuthenticatedUser currentUser, // Principal inyectado por BearerTokenAuthenticationFilter vía SecurityContext
             @RequestBody FriendshipActionRequest request) {
         Friendship friendship = sendFriendRequestUseCase.send(new SendFriendRequestUseCase.SendCommand(currentUser.getId(), request.targetId()));
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(FriendshipResponse.from(friendship));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Operation(
@@ -55,11 +54,11 @@ public class FriendshipController {
             description = "Acepta una solicitud de amistad pendiente. Solo puede ejecutarlo el receptor de la solicitud."
     )
     @PatchMapping("/{targetId}/accept")
-    public ResponseEntity<FriendshipResponse> accept(
+    public ResponseEntity<Void> accept(
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = acceptFriendRequestUseCase.accept(new AcceptFriendRequestUseCase.AcceptCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship));
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(
@@ -67,11 +66,11 @@ public class FriendshipController {
             description = "Rechaza una solicitud de amistad pendiente. Solo puede ejecutarlo el receptor de la solicitud."
     )
     @PatchMapping("/{targetId}/decline")
-    public ResponseEntity<FriendshipResponse> decline(
+    public ResponseEntity<Void> decline(
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = declineFriendRequestUseCase.decline(new DeclineFriendRequestUseCase.DeclineCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship));
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(
@@ -79,11 +78,11 @@ public class FriendshipController {
             description = "Elimina una amistad activa o bloqueada. Cualquiera de los dos puede ejecutarlo."
     )
     @PatchMapping("/{targetId}/remove")
-    public ResponseEntity<FriendshipResponse> remove(
+    public ResponseEntity<Void> remove(
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable UUID targetId) {
         Friendship friendship = removeFriendUseCase.remove(new RemoveFriendUseCase.RemoveCommand(currentUser.getId(), targetId));
-        return ResponseEntity.ok(FriendshipResponse.from(friendship));
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(

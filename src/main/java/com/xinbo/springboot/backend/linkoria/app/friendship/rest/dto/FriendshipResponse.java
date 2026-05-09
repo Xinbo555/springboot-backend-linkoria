@@ -1,5 +1,6 @@
 package com.xinbo.springboot.backend.linkoria.app.friendship.rest.dto;
 
+import com.xinbo.springboot.backend.linkoria.app.friendship.application.port.in.GetFriendshipsUseCase;
 import com.xinbo.springboot.backend.linkoria.app.friendship.domain.Friendship;
 
 import java.time.Instant;
@@ -16,18 +17,18 @@ public record FriendshipResponse(
         Instant createdAt,
         Instant updatedAt
 ) {
-    public static FriendshipResponse from(Friendship friendship, UUID friendId, String friendUsername, String avatarUrl) {
+    public static FriendshipResponse from(GetFriendshipsUseCase.GetFriendshipResponse getFriendshipResponse) {
 
         return new FriendshipResponse(
-                friendship.getId(),
-                friendship.getSenderId(),
-                friendship.getReceiverId(),
-                friendship.getStatus().toString(),
-                friendId,
-                friendUsername,
-                avatarUrl,
-                friendship.getCreatedAt(),
-                friendship.getUpdatedAt()
+                getFriendshipResponse.id(),
+                getFriendshipResponse.senderId(),
+                getFriendshipResponse.receiverId(),
+                getFriendshipResponse.status(),
+                getFriendshipResponse.friendId(),
+                getFriendshipResponse.friendUsername(),
+                getFriendshipResponse.avatarUrl(),
+                getFriendshipResponse.createdAt(),
+                getFriendshipResponse.updatedAt()
         );
     }
 }

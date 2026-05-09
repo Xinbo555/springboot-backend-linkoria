@@ -24,25 +24,68 @@ public class GetFriendshipsUseCaseImpl implements GetFriendshipsUseCase {
 
     @Override
     public List<GetFriendshipResponse> getFriends(UUID userId) {
-        List<Friendship> friendships = friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.ACCEPTED);
-        List<GetFriendshipResponse> friendshipResponseList = new ArrayList<>();
-        friendships.forEach(friendship -> {
-            UUID friendId = userId.equals(friendship.getSenderId())? friendship.getReceiverId() : friendship.getSenderId();
-            FriendshipUserDataPort.FriendUserData friendUserData = friendshipUserDataPort.getUserData(friendId);
-            friendshipResponseList.add(GetFriendshipResponse.from(friendship, friendId, friendUserData.username(), friendUserData.avatarUrl()));
-        });
-        return friendshipResponseList;
+        return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.ACCEPTED)
+                .stream()
+                .map(friendship -> {
+
+                    UUID friendId = userId.equals(friendship.getSenderId())
+                            ? friendship.getReceiverId()
+                            : friendship.getSenderId();
+
+                    FriendshipUserDataPort.FriendUserData friendUserData =
+                            friendshipUserDataPort.getUserData(friendId);
+
+                    return GetFriendshipResponse.from(
+                            friendship,
+                            friendId,
+                            friendUserData.username(),
+                            friendUserData.avatarUrl()
+                    );
+                })
+                .toList();
     }
 
     @Override
     public List<GetFriendshipResponse> getPendingReceived(UUID userId) {
         return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.PENDING)
-                .stream().filter(fs -> fs.getReceiverId().equals(userId)).toList();
+                .stream()
+                .filter(fs -> fs.getReceiverId().equals(userId))
+                .map(friendship -> {
+
+                    UUID friendId = friendship.getSenderId();
+
+                    FriendshipUserDataPort.FriendUserData friendUserData =
+                            friendshipUserDataPort.getUserData(friendId);
+
+                    return GetFriendshipResponse.from(
+                            friendship,
+                            friendId,
+                            friendUserData.username(),
+                            friendUserData.avatarUrl()
+                    );
+                })
+                .toList();
     }
 
     @Override
     public List<GetFriendshipResponse> getPendingSent(UUID userId) {
         return friendshipRepository.findByUserIdAndStatus(userId, FriendshipStatus.PENDING)
-                .stream().filter(fs -> fs.getSenderId().equals(userId)).toList();
+                .stream()
+                .filter(fs -> fs.getSenderId().equals(userId))
+                .map(friendship -> {
+
+                    UUID friendId = friendship.getReceiverId();
+
+                    FriendshipUserDataPort.FriendUserData friendUserData =
+                            friendshipUserDataPort.getUserData(friendId);
+
+                    return GetFriendshipResponse.from(
+                            friendship,
+                            friendId,
+                            friendUserData.username(),
+                            friendUserData.avatarUrl()
+                    );
+                })
+                .toList();
     }
 }

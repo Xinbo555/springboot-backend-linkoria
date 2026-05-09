@@ -51,6 +51,6 @@ public class LoginUseCaseImpl implements LoginUseCase {
         );
         RefreshToken savedToken = refreshTokenRepository.save(refreshToken);
 
-        return new AuthResult(accessToken, savedToken.getToken(), user.id(), user.username());
+        return new AuthResult(accessToken, savedToken.getToken(), user.id(), user.username(), savedToken.getExpiresAt());
     }
 }

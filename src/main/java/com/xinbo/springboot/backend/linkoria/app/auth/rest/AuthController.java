@@ -46,7 +46,7 @@ public class AuthController {
                 new LoginUseCase.LoginCommand(request.email(), request.password())
         );
         return ResponseEntity.ok(
-                AuthResponse.AuthTokenResponse.of(result.accessToken(), result.refreshToken(), result.userId(), result.username())
+                AuthResponse.AuthTokenResponse.of(result.accessToken(), result.refreshToken(), result.userId(), result.username(), result.refreshTokenExpiresAt())
         );
     }
 
@@ -61,7 +61,7 @@ public class AuthController {
         );
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(AuthResponse.AuthTokenResponse.of(result.accessToken(), result.refreshToken(), result.userId(), result.username()));
+                .body(AuthResponse.AuthTokenResponse.of(result.accessToken(), result.refreshToken(), result.userId(), result.username(), result.refreshTokenExpiresAt()));
     }
 
     @Operation(
@@ -72,7 +72,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse.TokenRefreshResponse> refresh(@RequestBody AuthRequest.RefreshRequest request) {
         RefreshTokenUseCase.TokenResult result = refreshTokenUseCase.refresh(request.refreshToken());
         return ResponseEntity.ok(
-                AuthResponse.TokenRefreshResponse.of(result.accessToken(), result.refreshToken())
+                AuthResponse.TokenRefreshResponse.of(result.accessToken(), result.refreshToken(), result.refreshTokenExpiresAt())
         );
     }
 

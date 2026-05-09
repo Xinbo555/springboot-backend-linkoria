@@ -52,6 +52,6 @@ public class RefreshTokenUseCaseImpl implements RefreshTokenUseCase {
 
         String newAccessToken = accessTokenPort.generateAccessToken(user.id(), user.username());
 
-        return new TokenResult(newAccessToken, savedToken.getToken());
+        return new TokenResult(newAccessToken, savedToken.getToken(), savedToken.getExpiresAt());
     }
 }

@@ -2,16 +2,15 @@ package com.xinbo.springboot.backend.linkoria.app.message.rest;
 
 import com.xinbo.springboot.backend.linkoria.app.message.application.port.in.*;
 import com.xinbo.springboot.backend.linkoria.app.message.domain.repository.MessageRepository;
-import com.xinbo.springboot.backend.linkoria.app.message.rest.dto.request.EditMessageRequest;
-import com.xinbo.springboot.backend.linkoria.app.message.rest.dto.request.SendMessageRequest;
 import com.xinbo.springboot.backend.linkoria.app.message.rest.dto.response.MessagePageResponse;
 import com.xinbo.springboot.backend.linkoria.app.message.rest.dto.response.MessageResponse;
 import com.xinbo.springboot.backend.linkoria.app.shared.security.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +35,14 @@ public class MessageController {
                     "El parámetro 'cursor' es el ID del último mensaje visto (null = primera página). " +
                     "El parámetro 'direction' indica si obtener mensajes anteriores (BACKWARDS) o posteriores (FORWARDS). " +
                     "Los resultados incluyen un 'nextCursor' para la siguiente página y un flag 'hasMore' para indicar si hay más mensajes."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Historial de mensajes recuperado exitosamente",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = MessagePageResponse.class)
+            )
     )
     @GetMapping
     public ResponseEntity<MessagePageResponse> getMessages(
@@ -74,6 +81,14 @@ public class MessageController {
             description = "Recupera el mensaje más reciente de una conversación. " +
                     "Útil para mostrar un preview en el listado de conversaciones. " +
                     "Retorna null si la conversación no tiene mensajes aún."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Último mensaje recuperado exitosamente",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = MessageResponse.class)
+            )
     )
     @GetMapping("/last")
     public ResponseEntity<MessageResponse> getLastMessage(

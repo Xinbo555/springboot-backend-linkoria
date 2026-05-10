@@ -1,5 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.user.application.usecase;
 
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.EmailAlreadyTakenException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.UsernameAlreadyTakenException;
 import com.xinbo.springboot.backend.linkoria.app.shared.exception.general.ResourceNotFoundException;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.UserRepository;
@@ -24,18 +26,18 @@ public class UpdateUserUseCase {
         User user = userRepository.findById(input.userId())
                 .orElseThrow(()->new ResourceNotFoundException("User not found: " + input.userId()));
 
-        if(input.newUsername != null) {
+        if(input.newUsername != null && !Username.of(input.newUsername()).equals(user.getUsername())) {
             Username newUsername = Username.of(input.newUsername());
-            if(!user.getUsername().equals(input.newUsername()) && userRepository.existsByUsername(newUsername)) {
-                throw new IllegalArgumentException("Username already taken: "+ input.newUsername());
+            if(!user.getUsername().equals(newUsername) && userRepository.existsByUsername(newUsername)) {
+                throw new UsernameAlreadyTakenException("Username already taken: "+ input.newUsername());
             }
             user.updateUsername(newUsername);
         }
 
-        if(input.newEmail != null) {
+        if(input.newEmail != null && !Email.of(input.newEmail).equals(user.getEmail())) {
             Email newEmail = Email.of(input.newEmail);
-            if(!user.getEmail().equals(input.newEmail()) && userRepository.existsByEmail(newEmail)) {
-                throw new IllegalArgumentException("Email already taken: "+ input.newUsername());
+            if(!user.getEmail().equals(newEmail) && userRepository.existsByEmail(newEmail)) {
+                throw new EmailAlreadyTakenException("Email already taken: "+ input.newUsername());
             }
             user.updateEmail(newEmail);
         }

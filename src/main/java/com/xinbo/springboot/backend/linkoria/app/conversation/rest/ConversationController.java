@@ -6,6 +6,7 @@ import com.xinbo.springboot.backend.linkoria.app.conversation.application.port.i
 import com.xinbo.springboot.backend.linkoria.app.conversation.application.port.in.GetDmConversationUseCase;
 import com.xinbo.springboot.backend.linkoria.app.conversation.rest.dto.request.CreateDmRequest;
 import com.xinbo.springboot.backend.linkoria.app.conversation.rest.dto.response.ConversationResponse;
+import com.xinbo.springboot.backend.linkoria.app.conversation.rest.dto.response.ConversationWithMetadataResponse;
 import com.xinbo.springboot.backend.linkoria.app.shared.security.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -58,13 +59,13 @@ public class ConversationController {
             description = "Devuelve todas las conversaciones directas del usuario autenticado."
     )
     @GetMapping("/dm")
-    public ResponseEntity<List<ConversationResponse>> getMyDms(
+    public ResponseEntity<List<ConversationWithMetadataResponse>> getMyDms(
             @AuthenticationPrincipal AuthenticatedUser currentUser) {
         return ResponseEntity.ok(
                 getConversationsByUserUseCase.execute(
                                 new GetConversationsByUserUseCase.GetConversationsByUserQuery(currentUser.getId())
                         ).stream()
-                        .map(ConversationResponse::from)
+                        .map(ConversationWithMetadataResponse::from)
                         .toList()
         );
     }

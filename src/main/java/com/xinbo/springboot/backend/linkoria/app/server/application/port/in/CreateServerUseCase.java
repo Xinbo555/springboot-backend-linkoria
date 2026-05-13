@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface CreateServerUseCase {
     Server create(CreateServerCommand command);
-    record CreateServerCommand(UUID ownerId, String serverName) {}
+    record CreateServerCommand(UUID ownerId, String serverName, String serverIcon) {}
 }

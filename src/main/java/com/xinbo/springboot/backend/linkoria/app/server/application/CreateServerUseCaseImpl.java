@@ -19,7 +19,7 @@ public class CreateServerUseCaseImpl implements CreateServerUseCase {
 
     @Override
     public Server create(CreateServerCommand command) {
-        Server createdServer = serverRepository.save(Server.create(command.serverName(), command.ownerId(), null));
+        Server createdServer = serverRepository.save(Server.create(command.serverName(), command.ownerId(), command.serverIcon()));
 
         //creamos un ServerMember con rol de OWNER en el servidor
         serverRepository.saveMember(ServerMember.create(createdServer.getId(), command.ownerId(), ServerRole.OWNER));

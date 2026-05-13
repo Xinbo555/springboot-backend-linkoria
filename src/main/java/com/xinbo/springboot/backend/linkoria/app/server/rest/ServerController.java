@@ -47,7 +47,7 @@ public class ServerController {
     public ResponseEntity<ServerResponse> createServer(
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @RequestBody CreateServerRequest request) {
-        Server server = createServerUseCase.create(new CreateServerUseCase.CreateServerCommand(currentUser.getId(), request.name()));
+        Server server = createServerUseCase.create(new CreateServerUseCase.CreateServerCommand(currentUser.getId(), request.name(), request.iconUrl()));
         return ResponseEntity.status(HttpStatus.CREATED).body(ServerResponse.from(server));
     }
 

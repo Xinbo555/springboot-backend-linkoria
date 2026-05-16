@@ -26,15 +26,17 @@ public class ServerController {
     private final GetServerUseCase getServerUseCase;
     private final UpdateServerUseCase updateServerUseCase;
     private final JoinServerUseCase joinServerUseCase;
+    private final FindServerByInviteCodeUseCase findServerByInviteCodeUseCase;
     private final LeaveServerUseCase leaveServerUseCase;
     private final GetServersByUserIdUseCase getServersByUserIdUseCase;
 
-    public ServerController(CreateServerUseCase createServerUseCase, DeleteServerUseCase deleteServerUseCase, GetServerUseCase getServerUseCase, UpdateServerUseCase updateServerUseCase, JoinServerUseCase joinServerUseCase, LeaveServerUseCase leaveServerUseCase, GetServersByUserIdUseCase getServersByUserIdUseCase) {
+    public ServerController(CreateServerUseCase createServerUseCase, DeleteServerUseCase deleteServerUseCase, GetServerUseCase getServerUseCase, UpdateServerUseCase updateServerUseCase, JoinServerUseCase joinServerUseCase, FindServerByInviteCodeUseCase findServerByInviteCodeUseCase, LeaveServerUseCase leaveServerUseCase, GetServersByUserIdUseCase getServersByUserIdUseCase) {
         this.createServerUseCase = createServerUseCase;
         this.deleteServerUseCase = deleteServerUseCase;
         this.getServerUseCase = getServerUseCase;
         this.updateServerUseCase = updateServerUseCase;
         this.joinServerUseCase = joinServerUseCase;
+        this.findServerByInviteCodeUseCase = findServerByInviteCodeUseCase;
         this.leaveServerUseCase = leaveServerUseCase;
         this.getServersByUserIdUseCase = getServersByUserIdUseCase;
     }
@@ -60,6 +62,13 @@ public class ServerController {
             @AuthenticationPrincipal AuthenticatedUser currentUser,
             @PathVariable Long serverId) {
         Server server = getServerUseCase.getServer(new GetServerUseCase.GetServerQuery(currentUser.getId(), serverId));
+        return ResponseEntity.ok(ServerResponse.from(server));
+    }
+
+    @GetMapping("/find/{inviteCode}")
+    public ResponseEntity<ServerResponse> findServerByInviteCode(
+            @PathVariable String inviteCode) {
+        Server server = findServerByInviteCodeUseCase.find(new FindServerByInviteCodeUseCase.FindCommand(inviteCode));
         return ResponseEntity.ok(ServerResponse.from(server));
     }
 

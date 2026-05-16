@@ -40,14 +40,17 @@ public class SendFriendRequestUseCaseImpl implements SendFriendRequestUseCase {
         return friendshipRepository.save(
                 friendshipRepository.findBySenderReceiverId(command.senderId(), command.receiverId())
                         .or(() -> friendshipRepository.findBySenderReceiverId(command.receiverId(), command.senderId()))
-                        .map(existing -> Friendship.reconstitute(
-                                existing.getId(),
-                                existing.getSenderId(),
-                                existing.getReceiverId(),
-                                FriendshipStatus.PENDING,
-                                existing.getCreatedAt(),
-                                Instant.now()
-                        ))
+                        .map(existing -> {
+                            boolean senderChanged = !existing.getSenderId().equals(command.senderId());
+                            return Friendship.reconstitute(
+                                    existing.getId(),
+                                    senderChanged ? existing.getReceiverId() : existing.getSenderId(),
+                                    senderChanged ? existing.getSenderId() : existing.getReceiverId(),
+                                    FriendshipStatus.PENDING,
+                                    existing.getCreatedAt(),
+                                    Instant.now()
+                            );
+                        })
                         .orElse(Friendship.create(command.senderId(), command.receiverId()))
         );
     }

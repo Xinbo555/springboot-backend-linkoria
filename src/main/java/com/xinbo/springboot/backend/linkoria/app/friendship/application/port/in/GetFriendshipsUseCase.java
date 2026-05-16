@@ -10,6 +10,8 @@ public interface GetFriendshipsUseCase {
 
     List<GetFriendshipResponse> getFriends(UUID userId);
 
+    List<GetFriendshipResponse> getFriendships(UUID userId);
+
     List<GetFriendshipResponse> getPendingReceived(UUID userId);
 
     List<GetFriendshipResponse> getPendingSent(UUID userId);

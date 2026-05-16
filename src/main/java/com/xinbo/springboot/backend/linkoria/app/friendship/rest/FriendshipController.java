@@ -98,6 +98,15 @@ public class FriendshipController {
         return ResponseEntity.ok(friendshipResponseList);
     }
 
+    @GetMapping()
+    public ResponseEntity<List<FriendshipResponse>> getFriendships(
+            @AuthenticationPrincipal AuthenticatedUser currentUser) {
+        List<FriendshipResponse> friendshipResponseList = getFriendshipsUseCase.getFriendships(currentUser.getId())
+                .stream().map(FriendshipResponse::from).toList();
+
+        return ResponseEntity.ok(friendshipResponseList);
+    }
+
     @Operation(
             summary = "Solicitudes recibidas pendientes",
             description = "Devuelve las solicitudes de amistad pendientes que el usuario ha recibido y aún no ha respondido."

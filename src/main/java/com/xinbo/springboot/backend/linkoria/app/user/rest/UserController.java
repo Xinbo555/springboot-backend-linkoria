@@ -36,13 +36,13 @@ public class UserController {
 
     @Operation(
             summary = "Actualizar perfil de usuario",
-            description = "Actualiza los campos username, email y avatarUrl del usuario. Solo se aplican los campos enviados en el body."
+            description = "Actualiza los campos username, email, avatarUrl y bio del usuario. Solo se aplican los campos enviados en el body."
     )
     @PatchMapping("/{userId}")
     public ResponseEntity<UserResponse> updateUser(
             @PathVariable UUID userId,
             @Valid @RequestBody UpdateUserRequest request) {
-        User user = userService.updateUser(userId, request.username(), request.email(), request.avatarUrl());
+        User user = userService.updateUser(userId, request.username(), request.email(), request.avatarUrl(), request.bio());
         return ResponseEntity.ok(UserResponse.from(user));
     }
 

@@ -18,7 +18,7 @@ public final class Username {
 
     public static Username of(String value) {
         validate(value);
-        return new Username(value.trim().toLowerCase());
+        return new Username(value.trim());
     }
 
     private static void validate(String value) {

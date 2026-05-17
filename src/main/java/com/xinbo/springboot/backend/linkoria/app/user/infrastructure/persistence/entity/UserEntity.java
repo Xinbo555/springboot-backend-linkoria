@@ -31,6 +31,9 @@ public class UserEntity {
     @Column(name = "avatar_url")
     private String avatarUrl;
 
+    @Column(name = "bio")
+    private String bio;
+
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
@@ -43,13 +46,14 @@ public class UserEntity {
     protected UserEntity() {}
 
     public UserEntity(UUID id, String username, String email, String passwordHash,
-                      String avatarUrl, boolean isActive,
+                      String avatarUrl, String bio, boolean isActive,
                       LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
         this.avatarUrl = avatarUrl;
+        this.bio = bio;
         this.isActive = isActive;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -60,6 +64,7 @@ public class UserEntity {
     public String getEmail() { return email; }
     public String getPasswordHash() { return passwordHash; }
     public String getAvatarUrl() { return avatarUrl; }
+    public String getBio() { return bio; }
     public boolean isActive() { return isActive; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }

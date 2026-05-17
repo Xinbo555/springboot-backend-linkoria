@@ -40,7 +40,7 @@ public class RegisterUseCaseImpl implements RegisterUseCase {
             throw new EmailAlreadyTakenException("Email is already in use");
         }
         if (userServicePort.existsByUsername(command.username())) {
-            throw new UsernameAlreadyTakenException("Username is already taken");
+            throw new UsernameAlreadyTakenException("Username is already taken: "+ command.username());
         }
 
         authService.validatePasswordStrength(command.password());

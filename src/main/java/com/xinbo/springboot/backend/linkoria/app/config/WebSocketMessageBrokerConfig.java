@@ -53,12 +53,7 @@ public class WebSocketMessageBrokerConfig implements WebSocketMessageBrokerConfi
      */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker(
-                "/topic/conversation",
-                "/topic/typing",            //Futuro
-                "/topic/presence",          //Futuro
-                "/topic/notification",      //Futuro
-                "/topic/receipt");          //Futuro
+        registry.enableSimpleBroker("/topic");
 
         // Prefijo de comandos (donde los clientes envían mensajes)
         registry.setApplicationDestinationPrefixes("/app");

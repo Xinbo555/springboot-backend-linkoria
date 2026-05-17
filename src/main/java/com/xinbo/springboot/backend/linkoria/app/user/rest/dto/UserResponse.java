@@ -11,6 +11,7 @@ public record UserResponse(
         String username,
         String email,
         String avatarUrl,
+        String bio,
         boolean isActive,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
@@ -21,6 +22,7 @@ public record UserResponse(
                 user.getUsername().getValue(),
                 user.getEmail().getValue(),
                 user.getAvatarUrl(),
+                user.getBio(),
                 user.isActive(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()

@@ -72,7 +72,7 @@ public class MessageWebSocketController {
                 request.replyToMessageId()
         );
 
-        SendMessageUseCase.SendMessageResponse response = sendMessageUseCase.execute(command);
+        sendMessageUseCase.execute(command);
 
         log.debug("WebSocket: Mensaje enviado - conversationId: {}, userId: {}",
                 conversationId, userId);
@@ -101,7 +101,7 @@ public class MessageWebSocketController {
                 request.newContent()
         );
 
-        EditMessageUseCase.EditMessageResponse response = editMessageUseCase.execute(command);
+        editMessageUseCase.execute(command);
 
         log.debug("WebSocket: mensaje editado - messageId: {}, userId: {}",
                 request.messageId(), userId);
@@ -129,7 +129,7 @@ public class MessageWebSocketController {
                 userId
         );
 
-        DeleteMessageUseCase.DeleteMessageResponse response = deleteMessageUseCase.execute(command);
+        deleteMessageUseCase.execute(command);
 
         log.debug("WebSocket: mensaje eliminado - messageId: {}, userId: {}",
                 request.messageId(), userId);

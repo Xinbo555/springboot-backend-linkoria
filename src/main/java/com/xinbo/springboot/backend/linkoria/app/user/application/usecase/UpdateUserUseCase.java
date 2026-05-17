@@ -20,7 +20,7 @@ public class UpdateUserUseCase {
         this.userRepository = userRepository;
     }
 
-    public record Input(UUID userId, String newUsername, String newEmail, String newAvatarUrl){}
+    public record Input(UUID userId, String newUsername, String newEmail, String newAvatarUrl, String newBio){}
 
     public User execute(Input input){
         User user = userRepository.findById(input.userId())
@@ -42,8 +42,12 @@ public class UpdateUserUseCase {
             user.updateEmail(newEmail);
         }
 
-        if (input.newAvatarUrl() != null) {
-            user.updateAvatarUrl(input.newAvatarUrl());
+        if (input.newAvatarUrl != null) {
+            user.updateAvatarUrl(input.newAvatarUrl);
+        }
+
+        if (input.newBio != null) {
+            user.updateBio(input.newBio);
         }
 
         return userRepository.save(user);

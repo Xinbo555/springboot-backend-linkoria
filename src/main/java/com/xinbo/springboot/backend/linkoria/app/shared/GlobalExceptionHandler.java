@@ -14,6 +14,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<?> handleAppException(AppException ex) {
+        ex.printStackTrace();
         return build(ex.getStatus(), ex.getMessage());
     }
 

@@ -12,7 +12,8 @@ public class User {
     private final UUID id;
     private Username username;
     private Email email;
-    private String passwordHash;
+    private String bio;
+    private final String passwordHash;
     private String avatarUrl;
     private boolean isActive;
     private final LocalDateTime createdAt;
@@ -30,12 +31,13 @@ public class User {
     }
 
     //constructor para reconstuir desde la persistencia
-    private User(UUID id, Username username, Email email, String passwordHash, String avatarUrl, boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    private User(UUID id, Username username, Email email, String passwordHash, String avatarUrl, String bio, boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
         this.avatarUrl = avatarUrl;
+        this.bio = bio;
         this.isActive = isActive;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -51,9 +53,9 @@ public class User {
     }
 
     public static User reconstitute(UUID id, Username username, Email email, String passwordHash,
-                                    String avatarUrl, boolean isActive,
+                                    String avatarUrl, String bio, boolean isActive,
                                     LocalDateTime createdAt, LocalDateTime updatedAt) {
-        return new User(id, username, email, passwordHash, avatarUrl, isActive, createdAt, updatedAt);
+        return new User(id, username, email, passwordHash, avatarUrl, bio, isActive, createdAt, updatedAt);
     }
 
     //metodos para indicar una modificacion en la cuenta
@@ -71,6 +73,11 @@ public class User {
 
     public void updateAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateBio(String bio) {
+        this.bio = bio;
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -93,6 +100,7 @@ public class User {
     public boolean isActive() { return isActive; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public String getBio() { return bio; }
 
     @Override
     public boolean equals(Object o) {

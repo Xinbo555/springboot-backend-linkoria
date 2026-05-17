@@ -1,5 +1,7 @@
 package com.xinbo.springboot.backend.linkoria.app.user.application.usecase;
 
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.EmailAlreadyTakenException;
+import com.xinbo.springboot.backend.linkoria.app.shared.exception.auth.UsernameAlreadyTakenException;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.User;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.UserRepository;
 import com.xinbo.springboot.backend.linkoria.app.user.domain.valueobject.Email;
@@ -23,11 +25,11 @@ public class CreateUserUseCase {
         Email email = Email.of(input.email());
 
         if (userRepository.existsByUsername(username)) {
-            throw new IllegalArgumentException("Username already taken: " + input.username());
+            throw new UsernameAlreadyTakenException("Username already taken: " + input.username());
         }
 
         if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Email already registered: " + input.email());
+            throw new EmailAlreadyTakenException("Email already registered: " + input.email());
         }
 
         User user = User.create(username, email, input.passwordHash());

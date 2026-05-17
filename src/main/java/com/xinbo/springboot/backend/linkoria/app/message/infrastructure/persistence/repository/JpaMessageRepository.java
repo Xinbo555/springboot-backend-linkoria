@@ -11,25 +11,29 @@ import java.util.Optional;
 public interface JpaMessageRepository extends JpaRepository<MessageEntity, Long> {
 
     @Query(value = """
-            SELECT * FROM messages
-                    WHERE conversation_id = :conversationId
-                    AND (:cursor IS NULL OR
-                         (CASE
-                            WHEN :direction = 'BACKWARDS' THEN id < :cursor
-                            WHEN :direction = 'FORWARDS' THEN id > :cursor
-                          END))
-                    ORDER BY
-                        CASE
-                            WHEN :direction = 'BACKWARDS' THEN id DESC
-                            WHEN :direction = 'FORWARDS' THEN id ASC
-                        END
-                    LIMIT :limit
-            """, nativeQuery = true)
-    List<MessageEntity> findByConversationIdCursorPaginatedNative(
+        SELECT * FROM messages
+                WHERE conversation_id = :conversationId
+                AND (:cursor IS NULL OR id < :cursor)
+                ORDER BY id DESC
+                LIMIT :limit
+        """, nativeQuery = true)
+    List<MessageEntity> findBackwards(
             @Param("conversationId") Long conversationId,
             @Param("cursor") Long cursor,
-            @Param("limit") int limit,
-            @Param("direction") String direction
+            @Param("limit") int limit
+    );
+
+    @Query(value = """
+        SELECT * FROM messages
+                WHERE conversation_id = :conversationId
+                AND (:cursor IS NULL OR id > :cursor)
+                ORDER BY id ASC
+                LIMIT :limit
+        """, nativeQuery = true)
+    List<MessageEntity> findForwards(
+            @Param("conversationId") Long conversationId,
+            @Param("cursor") Long cursor,
+            @Param("limit") int limit
     );
 
     Long deleteByConversationId(Long conversationId);

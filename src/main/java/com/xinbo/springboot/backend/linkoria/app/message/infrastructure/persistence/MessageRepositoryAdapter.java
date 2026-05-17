@@ -34,7 +34,9 @@ public class MessageRepositoryAdapter implements MessageRepository {
 
     @Override
     public List<Message> findByConversationIdCursorPaginated(Long conversationId, Long cursor, int limit, PaginationDirection direction) {
-        List<MessageEntity> entities = jpaMessageRepository.findByConversationIdCursorPaginatedNative(conversationId, cursor, limit, direction.name());
+        List<MessageEntity> entities = direction == PaginationDirection.BACKWARDS
+                ? jpaMessageRepository.findBackwards(conversationId, cursor, limit)
+                : jpaMessageRepository.findForwards(conversationId, cursor, limit);
         return entities.stream().map(MessageMapper::toDomain).toList();
     }
 

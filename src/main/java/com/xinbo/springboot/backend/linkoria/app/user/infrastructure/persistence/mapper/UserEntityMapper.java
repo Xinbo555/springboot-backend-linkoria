@@ -16,6 +16,7 @@ public class UserEntityMapper {
                 user.getEmail().getValue(),
                 user.getPasswordHash(),
                 user.getAvatarUrl(),
+                user.getBio(),
                 user.isActive(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
@@ -29,6 +30,7 @@ public class UserEntityMapper {
                 Email.of(entity.getEmail()),
                 entity.getPasswordHash(),
                 entity.getAvatarUrl(),
+                entity.getBio(),
                 entity.isActive(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()

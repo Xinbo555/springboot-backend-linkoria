@@ -25,8 +25,8 @@ public class UserService {
         this.findUserUseCase = findUserUseCase;
     }
 
-    public User updateUser(UUID userId, String newUsername, String newEmail, String newAvatarUrl) {
-        return updateUserUseCase.execute(new UpdateUserUseCase.Input(userId,newUsername,newEmail,newAvatarUrl));
+    public User updateUser(UUID userId, String newUsername, String newEmail, String newAvatarUrl, String newBio) {
+        return updateUserUseCase.execute(new UpdateUserUseCase.Input(userId,newUsername,newEmail,newAvatarUrl,newBio));
     }
 
     public User getUserById(UUID uuid) {

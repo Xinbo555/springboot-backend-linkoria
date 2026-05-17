@@ -11,5 +11,7 @@ public record UpdateUserRequest(
         @Email(message = "Invalid email format")
         String email,
 
-        String avatarUrl
+        String avatarUrl,
+
+        String bio
 ) {}

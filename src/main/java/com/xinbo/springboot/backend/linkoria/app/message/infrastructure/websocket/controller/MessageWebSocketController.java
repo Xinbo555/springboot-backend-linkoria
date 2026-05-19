@@ -11,9 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 
+import java.security.Principal;
 import java.util.UUID;
 
 
@@ -58,9 +60,9 @@ public class MessageWebSocketController {
     public void sendMessage(
             @Payload SendMessageWebSocketRequest request,
             @DestinationVariable Long conversationId,
-            @AuthenticationPrincipal AuthenticatedUser currentUser
+            Principal principal
     ) {
-
+        AuthenticatedUser currentUser = (AuthenticatedUser) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         UUID userId = currentUser.getId();
 
         //Ejecutar caso de uso

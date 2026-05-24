@@ -1,8 +1,11 @@
 package com.xinbo.springboot.backend.linkoria.app.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -72,5 +75,19 @@ public class WebSocketMessageBrokerConfig implements WebSocketMessageBrokerConfi
 
         // Prefijo de comandos (donde los clientes envían mensajes)
         registry.setApplicationDestinationPrefixes("/app");
+    }
+
+    /**
+     * TaskScheduler para el timeout automático del indicador de typing.
+     * Usado por TypingUseCaseImpl para cancelar el estado de escritura
+     * si el cliente no envía señal de STOP.
+     */
+    @Bean
+    public TaskScheduler taskScheduler() {
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setPoolSize(4);
+        scheduler.setThreadNamePrefix("typing-scheduler-");
+        scheduler.initialize();
+        return scheduler;
     }
 }

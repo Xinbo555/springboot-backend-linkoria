@@ -6,6 +6,7 @@ import com.xinbo.springboot.backend.linkoria.app.message.domain.event.MessageEdi
 import com.xinbo.springboot.backend.linkoria.app.message.infrastructure.websocket.dto.response.MessageDeletedResponse;
 import com.xinbo.springboot.backend.linkoria.app.message.infrastructure.websocket.dto.response.MessageEditedResponse;
 import com.xinbo.springboot.backend.linkoria.app.message.rest.dto.response.MessageResponse;
+import com.xinbo.springboot.backend.linkoria.app.shared.util.websocket.WebSocketNotification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -121,15 +122,4 @@ public class MessageBroadcaster {
         messagingTemplate.convertAndSend(destination, notification);
         log.debug("Evento {} enviado a {}", type, destination);
     }
-
-    // ============ Wrapper y DTOs ============
-
-    /**
-     * Wrapper genérico para asegurar que todos los mensajes tengan el mismo formato.
-     */
-    public record WebSocketNotification<T>(
-            String type,
-            T payload,
-            long timestamp
-    ) {}
 }

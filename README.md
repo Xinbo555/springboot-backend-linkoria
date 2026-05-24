@@ -167,23 +167,30 @@ Gestiona los canales de texto dentro de un servidor y su agrupación por categor
 - **Categorías** — los canales pueden agruparse bajo una `ChannelCategory` dentro del mismo servidor. La categoría es opcional, un canal puede existir sin categoría
 - **Restricciones** — al eliminar un servidor se eliminan en cascada todos sus canales y categorías. Al eliminar una categoría, sus canales pasan a `categoryId = null` sin eliminarse
 
+### `message` — Mensajería e Historial
+
+Gestiona el historial de chat, la lectura de mensajes y funciona como puente para la mensajería en tiempo real:
+
+- **Historial (Scroll infinito)** — implementación de paginación basada en cursor para recuperar el historial de forma eficiente (`BACKWARDS` y `FORWARDS`)
+- **Vista previa** — recuperación optimizada del último mensaje (`/last`) para alimentar rápidamente las listas de conversaciones recientes
+- **Tiempo real (WebSockets)** — ciclo de vida interactivo de los mensajes (envío, edición y eliminación). Para ver la implementación extraída, visitar el `pom.xml` específico
+- **Typing** — eventos de interfaz para el indicador de escritura. Para ver esta configuración, visitar el `pom.xml` específico
+
 ## Estado del proyecto
 
 Este proyecto está en desarrollo activo como parte del TFG. Módulos implementados hasta el momento:
 
-- [x] `user` — Gestión de usuarios
-- [x] `auth` — Autenticación JWT
-- [x] `friendship` — Sistema de amistades
-- [x] `server` — Servidores, miembros y roles
-- [x] `channel` — Canales de texto dentro de servidores
+- [x] `user` — Gestión de usuarios 
+- [x] `auth` — Autenticación JWT 
+- [x] `friendship` — Sistema de amistades 
+- [x] `server` — Servidores, miembros y roles 
+- [x] `channel` — Canales de texto dentro de servidores 
 - [x] `conversation` — Mensajes directos entre usuarios
-- [ ] `message` — Mensajería en tiempo real (WebSocket)
-- [ ] `notification` — Notificaciones push
+- [x] `message` — Mensajería en tiempo real
+- [x] `typing` — Indicador de escritura en tiempo real
+- [ ] `receipt` — Confirmaciones de lectura 
 - [ ] `presence` — Estado de conexión en tiempo real
-- [ ] `attachment` — Subida y gestión de archivos
-- [ ] `invitation` — Invitaciones a servidores
-- [ ] `receipt` — Confirmaciones de lectura
-- [ ] `typing` — Indicador de escritura
+- [ ] `notification` — Notificaciones push
 
 ---
 
